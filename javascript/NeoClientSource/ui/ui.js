@@ -6,7 +6,7 @@
     pemilu.ui.rivets.bind();
     pemilu.ui.rivets.setup();
     pemilu.ui.bind();
-
+	controller.getGeoLocation();
 	controller.getAllReport(1,view);
 }
 
@@ -40,8 +40,7 @@ if (node.length > 0) {
 	show_grid: true,
 	label_max: false,
 	label_min:false,
-	show_y_labels:false,
-	font_family:"Roboto","Open Sans", sans-serif
+	show_y_labels:false
 	});
 /*
 	for (var i=0;i <= (stats.length - 1);i++){
