@@ -11,6 +11,7 @@ function getjsonarea($lat,$long){
 function getareabyid($id){
 	$key = getapikey();
 	$ret = file_get_contents("/geographic/api/area/".$id."?apiKey=".$key);
+	return $ret;
 }
 
 ?>
