@@ -7,10 +7,12 @@
 	this.area = [];
 };
 
-pemilu.controller.prototype.getGeoLocation = function(){
+pemilu.controller.prototype.getGeoLocation = function(callback){
   if (navigator.geolocation) {
 	navigator.geolocation.getCurrentPosition(function(position){
-		this.geoLocation = [position.coords.latitude, position.coords.longitude];
+		_this.geoLocation = [position.coords.latitude, position.coords.longitude];
+		console.log(_this.geoLocation);
+		//callback(_this.geoLocation);
 	});
   }
   else{
@@ -19,12 +21,10 @@ pemilu.controller.prototype.getGeoLocation = function(){
 };
 
 pemilu.controller.prototype.getArea = function(geoLocation){
-	
+	console.log(geoLocation);
 		var ajaxCall = new pemilu.util.ajaxCall();
 		ajaxCall.getArea(geoLocation, function (response) {
-			_this.setArea(response, _view);
-			//force to re-bind
-			_view.bind();
+			_this.setArea(response);
 		});
 	
 };
@@ -32,18 +32,26 @@ pemilu.controller.prototype.getArea = function(geoLocation){
 
 
 pemilu.controller.prototype.getAllReport = function (pageNum, _view) {
-	this.getGeoLocation();
-	this.getArea();
-
-	var ajaxCall = new pemilu.util.ajaxCall();
+	this.getGeoLocation( function(position){	
+		var ajaxCall = new pemilu.util.ajaxCall();
+		if (position !=null){	
+		_this.getArea(position);	
+			for (var i; i < _this.area.length ; i++){
+				ajaxCall.getAllReportByAreaID(_this.area[i], pageNum, function (response) {
+					_this.setReportList(response, _view);
+					//force to re-bind
+					_view.bind();
+				});
+			}
+		}else{
+			ajaxCall.getAllReport( pageNum, function (response) {
+					_this.setReportList(response, _view);
+					//force to re-bind
+					_view.bind();
+				});
+		}
+	});
 	
-	for (var i; i < this.area.length ; i++){
-		ajaxCall.getAllReport(_this.area[i], pageNum, function (response) {
-			_this.setReportList(response, _view);
-			//force to re-bind
-			_view.bind();
-		});
-	}
 };
 
 pemilu.controller.prototype.getMostSharedReportList = function (pageNum, _view) {
@@ -107,12 +115,11 @@ pemilu.controller.prototype.setReportList = function (data, _view) {
 };
 
 
-pemilu.controller.prototype.setArea = function (data, _view) {
+pemilu.controller.prototype.setArea = function (data) {
 	//create random ukm list, later fetch it using ajax call
 	if (data !=null ){	
-		for (var i = 0; i <= (data.data.results.area.length -1 ) ; i++) {
-			this.area[i] = new pemilu.area(data.data.results.area[i]);
-			_view.bind();	
+		for (var i = 0; i <= (data.data.results.areas.length -1 ) ; i++) {
+			this.area[i] = new pemilu.area(data.data.results.areas[i]);
 		}
 	}	
 	

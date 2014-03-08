@@ -1,11 +1,15 @@
 ﻿pemilu = {};
 pemilu.util  = {};
 pemilu.ui    = {};
-pemilu.config = {
+pemilu.api = {
 	API_BASE_URL : "http://api.pemiluapi.org/",
-	API_PEMILU_KEY : "426c044849d8f98b1591c2643275eca3",
-	GET_AREA : API_BASE_URL + "geographic/api/point?apiKey=" + API_PEMILU_KEY,
+	API_PEMILU_KEY : "426c044849d8f98b1591c2643275eca3"
+};
+pemilu.config = {
+	
+	GET_AREA : pemilu.api.API_BASE_URL + "geographic/api/point?apiKey=" + pemilu.api.API_PEMILU_KEY,
     GET_ALL_LAPORAN : "./backend/getalllaporan.php",
+	GET_ALL_LAPORAN_BY_AREA_ID : "./backend/getalllaporanbyareaid.php",
 	GET_LAPORAN : "./backend/getlaporan.php",
 	GET_MOST_SHARED_LAPORAN : "./backend/getmostsharedlaporan.php",
     GET_NUM_LAPORAN_BY_CALEG: "./backend/getnulaporanbycaleg.php",
@@ -1353,10 +1357,12 @@ pemilu.config = {
 	this.area = [];
 };
 
-pemilu.controller.prototype.getGeoLocation = function(){
+pemilu.controller.prototype.getGeoLocation = function(callback){
   if (navigator.geolocation) {
 	navigator.geolocation.getCurrentPosition(function(position){
-		this.geoLocation = [position.coords.latitude, position.coords.longitude];
+		_this.geoLocation = [position.coords.latitude, position.coords.longitude];
+		console.log(_this.geoLocation);
+		//callback(_this.geoLocation);
 	});
   }
   else{
@@ -1365,12 +1371,10 @@ pemilu.controller.prototype.getGeoLocation = function(){
 };
 
 pemilu.controller.prototype.getArea = function(geoLocation){
-	
+	console.log(geoLocation);
 		var ajaxCall = new pemilu.util.ajaxCall();
 		ajaxCall.getArea(geoLocation, function (response) {
-			_this.setArea(response, _view);
-			//force to re-bind
-			_view.bind();
+			_this.setArea(response);
 		});
 	
 };
@@ -1378,18 +1382,26 @@ pemilu.controller.prototype.getArea = function(geoLocation){
 
 
 pemilu.controller.prototype.getAllReport = function (pageNum, _view) {
-	this.getGeoLocation();
-	this.getArea();
-
-	var ajaxCall = new pemilu.util.ajaxCall();
+	this.getGeoLocation( function(position){	
+		var ajaxCall = new pemilu.util.ajaxCall();
+		if (position !=null){	
+		_this.getArea(position);	
+			for (var i; i < _this.area.length ; i++){
+				ajaxCall.getAllReportByAreaID(_this.area[i], pageNum, function (response) {
+					_this.setReportList(response, _view);
+					//force to re-bind
+					_view.bind();
+				});
+			}
+		}else{
+			ajaxCall.getAllReport( pageNum, function (response) {
+					_this.setReportList(response, _view);
+					//force to re-bind
+					_view.bind();
+				});
+		}
+	});
 	
-	for (var i; i < this.area.length ; i++){
-		ajaxCall.getAllReport(_this.area[i], pageNum, function (response) {
-			_this.setReportList(response, _view);
-			//force to re-bind
-			_view.bind();
-		});
-	}
 };
 
 pemilu.controller.prototype.getMostSharedReportList = function (pageNum, _view) {
@@ -1453,12 +1465,11 @@ pemilu.controller.prototype.setReportList = function (data, _view) {
 };
 
 
-pemilu.controller.prototype.setArea = function (data, _view) {
+pemilu.controller.prototype.setArea = function (data) {
 	//create random ukm list, later fetch it using ajax call
 	if (data !=null ){	
-		for (var i = 0; i <= (data.data.results.area.length -1 ) ; i++) {
-			this.area[i] = new pemilu.area(data.data.results.area[i]);
-			_view.bind();	
+		for (var i = 0; i <= (data.data.results.areas.length -1 ) ; i++) {
+			this.area[i] = new pemilu.area(data.data.results.areas[i]);
 		}
 	}	
 	
@@ -1485,6 +1496,7 @@ pemilu.controller.prototype.getMostSharedReportList	= function (_view) {
 	this.party_id = obj.party_id_API;
 	this.user_id = this.user_id;
 	this.sharecounter = this.sharecounter;
+	
 };﻿pemilu.ui.rivets = {}
 pemilu.ui.rivets.setup = function() {
 
@@ -1614,7 +1626,7 @@ function showPosition(position) {
 };
 
 pemilu.util.ajaxCall.prototype.getArea = function (geoLocation, callback) {
-	this.url = pemilu.config.GET_AREA + "?laitude=" + geoLocation[0] + "&longitude=" + geoLocation[1] ;
+	this.url = pemilu.config.GET_AREA + "&lat=" + geoLocation[0] + "&long=" + geoLocation[1] ;
 	$.ajax(this.url, {
 		type: "GET",
 		dataType: "json"
@@ -1651,8 +1663,20 @@ pemilu.util.ajaxCall.prototype.getReport = function (reportID, callback) {
 	});
 };
 
-pemilu.util.ajaxCall.prototype.getAllReport = function (areaID, pageNum, callback) {
-	this.url = pemilu.config.GET_ALL_LAPORAN + "?areaID=" + areaID + "&pagenum=" +  pageNum;
+pemilu.util.ajaxCall.prototype.getAllReportByAreaID = function (areaID, pageNum, callback) {
+	this.url = pemilu.config.GET_ALL_LAPORAN_BY_AREA_ID + "?areaID=" + areaID + "&pagenum=" +  pageNum;
+	$.ajax(this.url, {
+		type: "GET",
+		dataType: "json"
+	}).done(function (data, textStatus, jqXHR) {
+		callback(data);
+	}).fail(function (jqXHR, textStatus, errorThrown) {
+		// ADD ERROR CALLBACK
+	});
+};
+
+pemilu.util.ajaxCall.prototype.getAllReport = function ( pageNum, callback) {
+	this.url = pemilu.config.GET_ALL_LAPORAN + "?pagenum=" +  pageNum;
 	$.ajax(this.url, {
 		type: "GET",
 		dataType: "json"

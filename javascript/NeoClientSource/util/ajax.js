@@ -3,7 +3,7 @@
 };
 
 pemilu.util.ajaxCall.prototype.getArea = function (geoLocation, callback) {
-	this.url = pemilu.config.GET_AREA + "?laitude=" + geoLocation[0] + "&longitude=" + geoLocation[1] ;
+	this.url = pemilu.config.GET_AREA + "&lat=" + geoLocation[0] + "&long=" + geoLocation[1] ;
 	$.ajax(this.url, {
 		type: "GET",
 		dataType: "json"
@@ -40,8 +40,20 @@ pemilu.util.ajaxCall.prototype.getReport = function (reportID, callback) {
 	});
 };
 
-pemilu.util.ajaxCall.prototype.getAllReport = function (areaID, pageNum, callback) {
-	this.url = pemilu.config.GET_ALL_LAPORAN + "?areaID=" + areaID + "&pagenum=" +  pageNum;
+pemilu.util.ajaxCall.prototype.getAllReportByAreaID = function (areaID, pageNum, callback) {
+	this.url = pemilu.config.GET_ALL_LAPORAN_BY_AREA_ID + "?areaID=" + areaID + "&pagenum=" +  pageNum;
+	$.ajax(this.url, {
+		type: "GET",
+		dataType: "json"
+	}).done(function (data, textStatus, jqXHR) {
+		callback(data);
+	}).fail(function (jqXHR, textStatus, errorThrown) {
+		// ADD ERROR CALLBACK
+	});
+};
+
+pemilu.util.ajaxCall.prototype.getAllReport = function ( pageNum, callback) {
+	this.url = pemilu.config.GET_ALL_LAPORAN + "?pagenum=" +  pageNum;
 	$.ajax(this.url, {
 		type: "GET",
 		dataType: "json"
