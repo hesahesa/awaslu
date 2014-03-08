@@ -21,7 +21,8 @@ $(document).ready(function(){
 			<li>Most Shared</li>
 		</ul>
 	</div>
-	<div class="gCard" rv-each-post="controllerPost.posts">
+	<div id="report-list">
+	<div class="gCard" rv-each-post="controller.reports">
 		<div>
 			<div class="post-title">
 				<span>{ post.title }</span>
@@ -36,6 +37,7 @@ $(document).ready(function(){
 				</div>
 			</div>
 		</div>
+	</div>
 	</div>
 </div>
 
