@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Mar 08, 2014 at 07:02 
+-- Generation Time: Mar 08, 2014 at 08:43 
 -- Server version: 5.1.41
 -- PHP Version: 5.3.1
 
@@ -22,24 +22,6 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `picture_tbl`
---
-
-DROP TABLE IF EXISTS `picture_tbl`;
-CREATE TABLE IF NOT EXISTS `picture_tbl` (
-  `picture_id` int(11) NOT NULL AUTO_INCREMENT,
-  `content` varchar(512) NOT NULL,
-  PRIMARY KEY (`picture_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
-
---
--- Dumping data for table `picture_tbl`
---
-
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `report_tbl`
 --
 
@@ -47,12 +29,12 @@ DROP TABLE IF EXISTS `report_tbl`;
 CREATE TABLE IF NOT EXISTS `report_tbl` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(128) NOT NULL,
-  `picture_id` int(11) NOT NULL,
+  `picture_url` varchar(128) NOT NULL,
   `description` varchar(512) NOT NULL,
   `date` datetime NOT NULL,
   `caleg_id_API` varchar(64) NOT NULL,
-  `lat` varchar(64) NOT NULL,
-  `long` varchar(64) NOT NULL,
+  `latitude` varchar(64) NOT NULL,
+  `longitude` varchar(64) NOT NULL,
   `party_id_API` varchar(64) NOT NULL,
   `user_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
@@ -62,10 +44,10 @@ CREATE TABLE IF NOT EXISTS `report_tbl` (
 -- Dumping data for table `report_tbl`
 --
 
-INSERT INTO `report_tbl` (`id`, `title`, `picture_id`, `description`, `date`, `caleg_id_API`, `lat`, `long`, `party_id_API`, `user_id`) VALUES
-(1, 'laporan 1', 12345, 'ini deskripsi laporan 1', '2014-03-08 15:56:13', 'caleg id', 'latitude', 'longitude', 'party id', 1),
-(2, 'laporan 2', 1234, 'deskripsi laporan 2', '2014-03-08 16:36:09', 'caleg id', 'latitude', 'longitude', 'party id', 1),
-(3, 'laporan 3', 1234, 'deskripsi laporan 3', '2014-03-08 17:45:28', 'caleg ip', 'latitude', 'longitude', 'party id', 1);
+INSERT INTO `report_tbl` (`id`, `title`, `picture_url`, `description`, `date`, `caleg_id_API`, `latitude`, `longitude`, `party_id_API`, `user_id`) VALUES
+(1, 'laporan 1', '12345', 'ini deskripsi laporan 1', '2014-03-08 15:56:13', 'caleg id', 'latitude', 'longitude', 'party id', 1),
+(2, 'laporan 2', '1234', 'deskripsi laporan 2', '2014-03-08 16:36:09', 'caleg id', 'latitude', 'longitude', 'party id', 1),
+(3, 'laporan 3', '1234', 'deskripsi laporan 3', '2014-03-08 17:45:28', 'caleg ip', 'latitude', 'longitude', 'party id', 1);
 
 -- --------------------------------------------------------
 
