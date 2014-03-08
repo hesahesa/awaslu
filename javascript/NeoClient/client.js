@@ -2,11 +2,11 @@
 pemilu.util  = {};
 pemilu.ui    = {};
 pemilu.config = {
-    GET_UKM_LIST : "getUkmList.php",
-	GET_UKM_MEMBER_LIST : "getUkmMemberList.php",
-	GET_UKM_BBMK_PARTICIPANT_LIST : "getUkmBbmkParticipantList.php",
-    GET_UKM: "getUkm.php",
-    GET_USER: "getUser.php"
+    GET_ALL_LAPORAN : "./backend/getalllaporan.php",
+	GET_LAPORAN : "./backend/getlaporan.php",
+	GET_MOST_SHARED_LAPORAN : "./backend/getmostsharedlaporan.php",
+    GET_NUM_LAPORAN_BY_CALEG: "./backend/getnulaporanbycaleg.php",
+    GET_NUM_LAPORAN_BY_PARTY: "./backend/getnumlaporanbyparty.php"
 };﻿pemilu.localStorage = function () {
 
     this.reset = function (callback) {
@@ -1322,26 +1322,65 @@ pemilu.config = {
     this.totReport = 0;
 };
 
-pemilu.controller.prototype.getReportList = function (_view) {
+pemilu.controller.prototype.getAllReport = function (pageNum, _view) {
 	var ajaxCall = new pemilu.util.ajaxCall();
-	ajaxCall.getReportList(function (response) {
+	ajaxCall.getAllReport(pageNum, function (response) {
 		_this.setReportList(response, _view);
 		//force to re-bind
 		_view.bind();
 	});
 };
 
+pemilu.controller.prototype.getMostSharedReportList = function (pageNum, _view) {
+	var ajaxCall = new pemilu.util.ajaxCall();
+	ajaxCall.getMostSharedReportList(pageNum, function (response) {
+		_this.setReportList(response, _view);
+		//force to re-bind
+		_view.bind();
+	});
+};
+
+pemilu.controller.prototype.getReport = function (reportID, _view) {
+	var ajaxCall = new pemilu.util.ajaxCall();
+	ajaxCall.getReport(reportID, function (response) {
+		_this.setReportList(response, _view);
+		//force to re-bind
+		_view.bind();
+	});
+};
+
+pemilu.controller.prototype.getTotReportByCaleg = function (calegID, _view) {
+	var ajaxCall = new pemilu.util.ajaxCall();
+	ajaxCall.getTotReportByCaleg(calegID, function (response) {
+		_this.setReportList(response, _view);
+		//force to re-bind
+		_view.bind();
+	});
+};
+
+pemilu.controller.prototype.getTotReportByParty = function (partyID, _view) {
+	var ajaxCall = new pemilu.util.ajaxCall();
+	ajaxCall.getTotReportByParty(partyID, function (response) {
+		_this.setReportList(response, _view);
+		//force to re-bind
+		_view.bind();
+	});
+};
+
+
+
+
 pemilu.controller.prototype.setReportList = function (data, _view) {
 	//create random ukm list, later fetch it using ajax call
-	for (i = 0; i < 19 ; i++) {
-		var title = "sample_name" + i;
-		var jsonData = [{ "id": i, "title": title, "picture_url": "http://stat.ks.kidsklik.com/statics/files/2014/01/13887804611655356549.gif"}];
-		console.log(jsonData[0]);
-		this.reports[i] = new pemilu.report(jsonData[0]);
-		_view.bind();
-		var dummyStats = [[ new Date("1/1/2012"), 10], [new Date("2/1/2012"),1], [ new Date("3/1/2012"),  4]];
-		pemilu.ui.buildChart(i, dummyStats);		
+	if (data !=null ){
+		for (var i = 0; i <= (data.length -1 ) ; i++) {
+			this.reports[i] = new pemilu.report(data[i]);
+			_view.bind();
+			var dummyStats = [[ new Date("1/1/2012"), 3], [new Date("2/1/2012"),15], [ new Date("3/1/2012"),  34],[ new Date("4/1/2012"), 10], [new Date("5/1/2012"),1], [ new Date("6/1/2012"),  4],[ new Date("7/1/2012"), 10], [new Date("8/1/2012"),1], [ new Date("9/1/2012"),  4]];
+			pemilu.ui.buildChart(i, dummyStats);		
+		}
 	}
+
 
 	
 	
@@ -1405,7 +1444,7 @@ pemilu.ui.rivets.bind = function () {
     pemilu.ui.rivets.setup();
     pemilu.ui.bind();
 
-	controller.setReportList("{}",view);
+	controller.getAllReport(10,view);
 }
 
 /* Function to bind the element with handler */
@@ -1437,7 +1476,9 @@ console.log(stats);
 if (node.length > 0) {
 	
 	var chart = new Charts.LineChart(node[0], {
-	show_grid: true
+	show_grid: true,
+	label_max: false,
+	label_min:false
 	});
 /*
 	for (var i=0;i <= (stats.length - 1);i++){
@@ -1479,9 +1520,8 @@ function hideDialogue(dialogue){
 	this.url = ""
 };
 
-
-pemilu.util.ajaxCall.prototype.getMostSharedReportList = function (callback) {
-	this.url = pemilu.config.GET_UKM_LIST;
+pemilu.util.ajaxCall.prototype.getMostSharedReportList = function (pageNum, callback) {
+	this.url = pemilu.config.GET_MOST_SHARED_LAPORAN + "?pagenum=" + pageNum ;
 	$.ajax(this.url, {
 		type: "GET",
 		dataType: "json"
@@ -1493,8 +1533,8 @@ pemilu.util.ajaxCall.prototype.getMostSharedReportList = function (callback) {
 	});
 };
 
-pemilu.util.ajaxCall.prototype.getReportList = function (ukm_id, callback) {
-	this.url = pemilu.config.GET_UKM_MEMBER_LIST + "?ukm_id=" + ukm_id;
+pemilu.util.ajaxCall.prototype.getReport = function (reportID, callback) {
+	this.url = pemilu.config.GET_LAPORAN + "?laporan_id=" + reportID;
 	$.ajax(this.url, {
 		type: "GET",
 		dataType: "json"
@@ -1505,8 +1545,34 @@ pemilu.util.ajaxCall.prototype.getReportList = function (ukm_id, callback) {
 	});
 };
 
-pemilu.util.ajaxCall.prototype.getCalegInfo = function (caleg_id, callback) {
-	this.url = pemilu.config.GET_UKM_BBMK_PARTICIPANT_LIST + "?ukm_id=" + ukm_id + "&" + param + "=" + value;
+pemilu.util.ajaxCall.prototype.getAllReport = function (pageNum, callback) {
+	this.url = pemilu.config.GET_ALL_LAPORAN + "?pagenum=" +  pageNum;
+	$.ajax(this.url, {
+		type: "GET",
+		dataType: "json"
+	}).done(function (data, textStatus, jqXHR) {
+		callback(data);
+	}).fail(function (jqXHR, textStatus, errorThrown) {
+		// ADD ERROR CALLBACK
+	});
+};
+
+
+pemilu.util.ajaxCall.prototype.getTotReportByCaleg = function (calegID, callback) {
+	this.url = pemilu.config.GET_NUM_LAPORAN_BY_CALEG + "?caleg_id=" +  calegID;
+	$.ajax(this.url, {
+		type: "GET",
+		dataType: "json"
+	}).done(function (data, textStatus, jqXHR) {
+		callback(data);
+	}).fail(function (jqXHR, textStatus, errorThrown) {
+		// ADD ERROR CALLBACK
+	});
+};
+
+
+pemilu.util.ajaxCall.prototype.getTotReportByParty = function (party_id, callback) {
+	this.url = pemilu.config.GET_NUM_LAPORAN_BY_PARTY + "?party_id=" +  party_id;
 	$.ajax(this.url, {
 		type: "GET",
 		dataType: "json"

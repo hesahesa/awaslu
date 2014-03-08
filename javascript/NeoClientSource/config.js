@@ -2,9 +2,9 @@
 pemilu.util  = {};
 pemilu.ui    = {};
 pemilu.config = {
-    GET_UKM_LIST : "getUkmList.php",
-	GET_UKM_MEMBER_LIST : "getUkmMemberList.php",
-	GET_UKM_BBMK_PARTICIPANT_LIST : "getUkmBbmkParticipantList.php",
-    GET_UKM: "getUkm.php",
-    GET_USER: "getUser.php"
+    GET_ALL_LAPORAN : "./backend/getalllaporan.php",
+	GET_LAPORAN : "./backend/getlaporan.php",
+	GET_MOST_SHARED_LAPORAN : "./backend/getmostsharedlaporan.php",
+    GET_NUM_LAPORAN_BY_CALEG: "./backend/getnulaporanbycaleg.php",
+    GET_NUM_LAPORAN_BY_PARTY: "./backend/getnumlaporanbyparty.php"
 };

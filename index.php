@@ -31,7 +31,7 @@ $(document).ready(function(){
 		<li id="report-view-most">Most Shared</li>
 		<li>
 			<div id="addReport">
-			+
+				<a href="#" class="iButton">+</a>
 			</div>
 		</li>
 	</ul>
@@ -54,14 +54,17 @@ $(document).ready(function(){
 					<div class="additional-info">
 						<div class="caleg-info">
 							<img src="http://rinaldimunir.files.wordpress.com/2013/04/emil.jpeg" />
-							<div rv-class='post.id | chartClass' style='width: 300px; height: 300px;'></div>
+							<span>{ post.party_id }</span>
+							<div rv-class='post.id | chartClass' style='width: 300px; height: 300px;margin-top: -40px;'></div>
 						</div>
 						<span class="see-more">See More</span>
 					</div>
 				</div>
 			</div>
 			<div class="post-info">
-				<div class="post-info-likes"></div>
+				<div class="post-info-likes">
+				dishare sebanyak x kali
+				</div>
 				<div class="post-info-share">
 					<a class="iButton" href="#"><span class="icon-share"></span></a>
 				</div>

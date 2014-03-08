@@ -24,7 +24,7 @@ a.iButton{
 
 #addReport{
 	position: fixed;
-	font-size: 7em;
+	font-size: 4em;
 	color: #3d3d3d;
 	margin-left: -338px;
 	top: 45px;
@@ -76,12 +76,25 @@ a.iButton{
 	position:relative;
 }
 .post-info .caleg-info img{
-	position:absolute;
-	left:5px;
-	top:0;
-	width:32px;
-	z-index:9;
+	float:left;
+	width: 90px;
+	height:90px;
+	z-index: 9;
+	border: 1px solid #ddd;
+	padding: 5px;
+	background: #fff;
+	margin-right: 20px;
 }
+
+.post-info .caleg-info span{
+	float:left;
+}
+
+.post-info .caleg-info div{
+	float:left;
+	clear:both;
+}
+
 
 /* Dialogue */
 #dialogue-overlay{

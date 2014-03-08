@@ -7,7 +7,7 @@
     pemilu.ui.rivets.setup();
     pemilu.ui.bind();
 
-	controller.setReportList("{}",view);
+	controller.getAllReport(10,view);
 }
 
 /* Function to bind the element with handler */
@@ -39,7 +39,9 @@ console.log(stats);
 if (node.length > 0) {
 	
 	var chart = new Charts.LineChart(node[0], {
-	show_grid: true
+	show_grid: true,
+	label_max: false,
+	label_min:false
 	});
 /*
 	for (var i=0;i <= (stats.length - 1);i++){

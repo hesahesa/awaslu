@@ -49,3 +49,13 @@
 	font-size:1.3em;	
 	color:#999;
 }
+
+.gCard .post-info-likes{
+	float:left;
+	color:#ddd;
+	font-size:1.2em;
+}
+
+.gCard .post-info-share{
+	float:right;
+}
