@@ -3,6 +3,7 @@
     this.reports = [];
     this.hasReport = false;
     this.totReport = 0;
+	this.geoLocation = null;
 };
 
 pemilu.controller.prototype.getAllReport = function (pageNum, _view) {

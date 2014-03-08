@@ -46,7 +46,8 @@ $(document).ready(function(){
 	<div class="gCard" rv-each-post="controller.reports">
 		<div class="innerWrapper">
 			<div class="post-title">
-				<span>{ post.title }</span>
+				<span class="title">{ post.title }</span>
+				<span class="date">{ post.date }</span>
 			</div>
 			<div class="post-info"> 
 				<div>
@@ -57,13 +58,16 @@ $(document).ready(function(){
 							<span>{ post.party_id }</span>
 							<div rv-class='post.id | chartClass' style='width: 300px; height: 300px;margin-top: -40px;'></div>
 						</div>
+						<div class="description">
+						{ post.description } 
+						</div>
 						<span class="see-more">See More</span>
 					</div>
 				</div>
 			</div>
 			<div class="post-info">
 				<div class="post-info-likes">
-				dishare sebanyak x kali
+				dishare sebanyak { post.sharecounter } kali
 				</div>
 				<div class="post-info-share">
 					<a class="iButton" href="#"><span class="icon-share"></span></a>

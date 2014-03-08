@@ -7,7 +7,7 @@
     pemilu.ui.rivets.setup();
     pemilu.ui.bind();
 
-	controller.getAllReport(10,view);
+	controller.getAllReport(1,view);
 }
 
 /* Function to bind the element with handler */
@@ -34,14 +34,14 @@ pemilu.ui.bind = function ()
 
 pemilu.ui.buildChart = function(calegID, stats){
 var node  = document.getElementsByClassName('chart_' + calegID);
-console.log(node);
-console.log(stats);
 if (node.length > 0) {
 	
 	var chart = new Charts.LineChart(node[0], {
 	show_grid: true,
 	label_max: false,
-	label_min:false
+	label_min:false,
+	show_y_labels:false,
+	font_family:"Roboto","Open Sans", sans-serif
 	});
 /*
 	for (var i=0;i <= (stats.length - 1);i++){

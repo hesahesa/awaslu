@@ -9,5 +9,5 @@
 	this.longitude = obj.longitude;
 	this.party_id = obj.party_id_API;
 	this.user_id = this.user_id;
-	this.numbershares = this.numbershares;
+	this.sharecounter = this.sharecounter;
 };

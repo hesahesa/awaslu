@@ -1406,7 +1406,7 @@ pemilu.controller.prototype.getMostSharedReportList	= function (_view) {
 	this.longitude = obj.longitude;
 	this.party_id = obj.party_id_API;
 	this.user_id = this.user_id;
-	this.numbershares = this.numbershares;
+	this.sharecounter = this.sharecounter;
 };﻿pemilu.ui.rivets = {}
 pemilu.ui.rivets.setup = function() {
 
@@ -1444,7 +1444,7 @@ pemilu.ui.rivets.bind = function () {
     pemilu.ui.rivets.setup();
     pemilu.ui.bind();
 
-	controller.getAllReport(10,view);
+	controller.getAllReport(1,view);
 }
 
 /* Function to bind the element with handler */
@@ -1478,7 +1478,8 @@ if (node.length > 0) {
 	var chart = new Charts.LineChart(node[0], {
 	show_grid: true,
 	label_max: false,
-	label_min:false
+	label_min:false,
+	show_y_labels:false
 	});
 /*
 	for (var i=0;i <= (stats.length - 1);i++){
