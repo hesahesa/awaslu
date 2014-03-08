@@ -6,6 +6,38 @@
 		return $db;
 	}
 	
+	function storelaporan ($title, $url, $desc, $date, $caleg_id_api, $latitude, $longitude, $party_id_api, $user_id){
+		$db;
+		try {
+			$db = connect_pdo();
+		}
+		
+		  // Define an insert query
+		 $prepared = $db->prepare("INSERT INTO report_tbl (title, picture_url,description,date,caleg_id_API,latitude,longitude,party_id_API,user_id)
+			VALUES
+			  (:title, :url, :desc, :date, :caleg_id_api, :latitude, :longitude, :party_id_api, :user_id)");
+		$prepared->bindParam(":title", $title);
+        $prepared->bindParam(":url", $url);
+		$prepared->bindParam(":desc", $desc);
+		$prepared->bindParam(":date", $date);
+		$prepared->bindParam(":caleg_id_api", $caleg_id_api);
+		$prepared->bindParam(":latitude", $latitude);
+		$prepared->bindParam(":longitude", $longitude);
+		$prepared->bindParam(":party_id_api", $party_id_api);
+		$prepared->bindParam(":user_id", $user_id);
+		$status = $prepared->execute(); 
+		
+
+		  $db = null;        // Disconnect
+		}
+		
+		return $status;
+		
+		catch (PDOException $ex) {
+			return false;
+		}
+		
+	}
 	function extractdatalaporan($id) {
 		// param : id laporan
 		$db;
