@@ -21,7 +21,11 @@ if ((($_FILES["file"]["type"] == "image/gif")
     echo "Type: " . $_FILES["file"]["type"] . "<br>";
     echo "Size: " . ($_FILES["file"]["size"] / 1024) . " kB<br>";
     echo "Stored in: " . $_FILES["file"]["tmp_name"];
-    }
+    
+	 move_uploaded_file($_FILES["file"]["tmp_name"],
+      "../resources/" . $_FILES["file"]["name"]);
+      echo "Stored in: " . "../resources/" . $_FILES["file"]["name"];
+	}
   }
 else
   {
