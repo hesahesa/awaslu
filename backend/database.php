@@ -11,9 +11,12 @@
 		try {
 			$db = connect_pdo();
 		}
+		catch (PDOException $ex) {
+			return false;
+		}
 		
 		  // Define an insert query
-		 $prepared = $db->prepare("INSERT INTO report_tbl (title, picture_url,description,date,caleg_id_API,latitude,longitude,party_id_API,user_id)
+		$prepared = $db->prepare("INSERT INTO report_tbl (title, picture_url,description,date,caleg_id_API,latitude,longitude,party_id_API,user_id)
 			VALUES
 			  (:title, :url, :desc, :date, :caleg_id_api, :latitude, :longitude, :party_id_api, :user_id)");
 		$prepared->bindParam(":title", $title);
@@ -28,15 +31,9 @@
 		$status = $prepared->execute(); 
 		
 
-		  $db = null;        // Disconnect
-		}
+		$db = null;        // Disconnect
 		
-		return $status;
-		
-		catch (PDOException $ex) {
-			return false;
-		}
-		
+		return $status;		
 	}
 	function extractdatalaporan($id) {
 		// param : id laporan
@@ -138,7 +135,7 @@
 		return $ret;
 	}
 	
-	function calculatenumberofreport($caleg_id) {
+	function calculatenumberofreport_caleg($caleg_id) {
 		// param : caleg id
 		$db;
 		try {
@@ -163,4 +160,31 @@
 		$db = null;
 		return $ret;
 	}
+	
+	function calculatenumberofreport_party($party_id) {
+		// param : caleg id
+		$db;
+		try {
+			$db = connect_pdo();
+		}
+		catch (PDOException $ex) {
+			return false;
+		}
+		
+		$string_prep_query = "SELECT DATE(`date`) as date, count(*) as value FROM `report_tbl` where party_id_API = :party_id group by DATE(`date`)";
+		
+		$prepared = $db->prepare($string_prep_query);
+		$prepared->bindParam(":party_id", $party_id);
+		$status = $prepared->execute();
+		
+		/*if($status)
+			cetakDataPesanan($prepared->fetch());
+		
+		$db = null;
+		return $status;*/
+		$ret = $prepared->fetchAll();
+		$db = null;
+		return $ret;
+	}
+
 ?>
