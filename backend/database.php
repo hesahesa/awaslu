@@ -45,7 +45,7 @@
 			return false;
 		}
 		
-		$string_prep_query = "SELECT id, title, picture_url, description, `date`, caleg_id_API, latitude, longitude, party_id_API, user_id , coalesce(counter, 0) as sharecounter
+		$string_prep_query = "SELECT id, title, picture_url, description, `date`, caleg_id_API, latitude, longitude, party_id_API, user_id , area_id_API, coalesce(counter, 0) as sharecounter
 				FROM report_tbl
 				LEFT OUTER JOIN (
 					SELECT report_id, count(*) as counter FROM shares_tbl GROUP BY report_id
@@ -77,7 +77,7 @@
 			return false;
 		}
 		
-		$string_prep_query = "SELECT id, title, picture_url, description, `date`, caleg_id_API, latitude, longitude, party_id_API, user_id , coalesce(counter, 0) as sharecounter
+		$string_prep_query = "SELECT id, title, picture_url, description, `date`, caleg_id_API, latitude, longitude, party_id_API, user_id , area_id_API, coalesce(counter, 0) as sharecounter
 				FROM report_tbl
 				LEFT OUTER JOIN (
 					SELECT report_id, count(*) as counter FROM shares_tbl GROUP BY report_id
@@ -111,7 +111,7 @@
 			return false;
 		}
 		
-		$string_prep_query = "SELECT id, title, picture_url, description, `date`, caleg_id_API, latitude, longitude, party_id_API, user_id , coalesce(counter, 0) as sharecounter
+		$string_prep_query = "SELECT id, title, picture_url, description, `date`, caleg_id_API, latitude, longitude, party_id_API, user_id , area_id_API, coalesce(counter, 0) as sharecounter
 				FROM report_tbl
 				LEFT OUTER JOIN (
 					SELECT report_id, count(*) as counter FROM shares_tbl GROUP BY report_id
