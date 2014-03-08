@@ -1338,8 +1338,14 @@ pemilu.controller.prototype.setReportList = function (data, _view) {
 		var jsonData = [{ "report_id": i, "title": title, "pic_url": "http://stat.ks.kidsklik.com/statics/files/2014/01/13887804611655356549.gif"}];
 		console.log(jsonData[0]);
 		this.reports[i] = new pemilu.report(jsonData[0]);
+			_view.bind();
+		pemilu.ui.buildChart(i, jsonData[0]);
+		
+		
 	}
-	_view.bind();
+
+	
+	
 };
 
 pemilu.controller.prototype.getMostSharedReportList	= function (_view) {
@@ -1349,7 +1355,9 @@ pemilu.controller.prototype.getMostSharedReportList	= function (_view) {
 		//force to re-bind
 		_view.bind();
 	});
-};﻿pemilu.report = function (obj) {
+};
+
+﻿pemilu.report = function (obj) {
     this.id = obj.id;
     this.title = obj.title;
     this.pic_url = obj.pic_url;
@@ -1361,7 +1369,13 @@ pemilu.ui.rivets.setup = function() {
 	        return value == 1 ? "active" : "inactive";
 	    }
 	}
-
+	
+	rivets.formatters.chartID = {
+	    read: function (value) {
+	        return "chart_" + value;
+	    }
+	}
+	
 };
 
 
@@ -1399,6 +1413,38 @@ pemilu.ui.bind = function ()
 	$("#report-view-most").bind("click", function(){
 		controller.getMostSharedReportList(view);
 	});
+}
+
+pemilu.ui.buildChart = function(calegID, jsonData){
+console.log($("#chart_" + String(calegID)).length > 0);
+if ($("#chart_" + calegID).length > 0) {
+console.log("got it");
+	var chartID = 'chart_' + String(calegID);
+	var bars = new Charts.BarChart(chartID, {
+	  bar_width: 25
+	});
+
+	bars.add({
+	  label: "foo",
+	  value: 600
+	});
+
+	bars.add({
+	  label: "moo",
+	  value: 800,
+	  options: {
+		bar_color: "#53ba03"
+	  }
+	});
+
+	bars.add({
+	  label: "doo",
+	  value: 300
+	});
+
+	bars.draw();
+}
+
 }﻿;pemilu.util.ajaxCall = function () {
 	this.url = ""
 };

@@ -2,6 +2,8 @@
 <head>
 <meta name="viewport" content="initial-scale=1, maximum-scale=1, width=device-width" >
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script type="text/javascript" src="javascript/jslib/raphael.min.js"></script>
+<script type="text/javascript" src="javascript/jslib/charts.min.js"></script>
 <script type="text/javascript" src="javascript/NeoClient/client.js"></script>
 <link href='http://fonts.googleapis.com/css?family=Roboto:400,300,100' rel='stylesheet' type='text/css'>
 <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300' rel='stylesheet' type='text/css'>
@@ -14,6 +16,9 @@
 <script type="text/javascript">
 $(document).ready(function(){
 	pemilu.ui.ready();
+
+
+
 });
 </script>
 </head>
@@ -42,6 +47,7 @@ $(document).ready(function(){
 					<div class="additional-info">
 						<div class="caleg-info">
 							<img src="http://rinaldimunir.files.wordpress.com/2013/04/emil.jpeg" />
+							<div id='chart_1' style='width: 300px; height: 300px;'></div>
 						</div>
 						<span class="see-more">See More</span>
 					</div>

@@ -6,7 +6,13 @@ pemilu.ui.rivets.setup = function() {
 	        return value == 1 ? "active" : "inactive";
 	    }
 	}
-
+	
+	rivets.formatters.chartID = {
+	    read: function (value) {
+	        return "chart_" + value;
+	    }
+	}
+	
 };
 
 

@@ -21,8 +21,12 @@ pemilu.controller.prototype.setReportList = function (data, _view) {
 		var jsonData = [{ "report_id": i, "title": title, "pic_url": "http://stat.ks.kidsklik.com/statics/files/2014/01/13887804611655356549.gif"}];
 		console.log(jsonData[0]);
 		this.reports[i] = new pemilu.report(jsonData[0]);
+		_view.bind();
+		pemilu.ui.buildChart(i, jsonData[0]);		
 	}
-	_view.bind();
+
+	
+	
 };
 
 pemilu.controller.prototype.getMostSharedReportList	= function (_view) {
@@ -33,3 +37,4 @@ pemilu.controller.prototype.getMostSharedReportList	= function (_view) {
 		_view.bind();
 	});
 };
+
