@@ -16,7 +16,7 @@
 		}
 		
 		  // Define an insert query
-		$prepared = $db->prepare("INSERT INTO report_tbl (title, picture_url,description,date,caleg_id_API,latitude,longitude,party_id_API,user_id)
+		$prepared = $db->prepare("INSERT INTO report_tbl (title, picture_url,description,`date`,caleg_id_API,latitude,longitude,party_id_API,user_id)
 			VALUES
 			  (:title, :url, :desc, :date, :caleg_id_api, :latitude, :longitude, :party_id_api, :user_id)");
 		$prepared->bindParam(":title", $title);
