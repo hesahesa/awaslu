@@ -7,7 +7,7 @@ pemilu.ui.rivets.setup = function() {
 	    }
 	}
 	
-	rivets.formatters.chartID = {
+	rivets.formatters.chartClass = {
 	    read: function (value) {
 	        return "chart_" + value;
 	    }

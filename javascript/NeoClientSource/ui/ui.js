@@ -22,34 +22,59 @@ pemilu.ui.bind = function ()
 	$("#report-view-most").bind("click", function(){
 		controller.getMostSharedReportList(view);
 	});
+	
+	$("#addReport").bind("click", function(){
+		showDialogue("#dialogue");
+	});
+	
+	$("#dialogue-overlay").bind("click", function(){
+		hideDialogue("#dialogue");
+	});
 }
 
-pemilu.ui.buildChart = function(calegID, jsonData){
-if ($("#chart_" + calegID).length > 0) {
-	var chartID = 'chart_' + String(calegID);
-	var bars = new Charts.BarChart(chartID, {
-	  bar_width: 25
+pemilu.ui.buildChart = function(calegID, stats){
+var node  = document.getElementsByClassName('chart_' + calegID);
+console.log(node);
+console.log(stats);
+if (node.length > 0) {
+	
+	var chart = new Charts.LineChart(node[0], {
+	show_grid: true
 	});
-
-	bars.add({
-	  label: "foo",
-	  value: 600
-	});
-
-	bars.add({
-	  label: "moo",
-	  value: 800,
+/*
+	for (var i=0;i <= (stats.length - 1);i++){
+			bars.add({
+			  label: stats[i].label,
+			  value: stats[i].value
+			});
+	}
+	bars.draw();
+	*/
+	chart.add_line({
+	  data: stats,
+	  // line level options passed here
 	  options: {
-		bar_color: "#53ba03"
+		line_color: "#00aadd",
+		dot_color: "#00aadd",
+		area_color: "rgba(255,255,255,0)",
+		area_opacity: 0.2,
+		dot_size: 5,
+		line_width: 2 
 	  }
 	});
-
-	bars.add({
-	  label: "doo",
-	  value: 300
-	});
-
-	bars.draw();
+chart.draw();
 }
+
+}
+
+
+function showDialogue(dialogue){
+	$(dialogue).show();
+	$("#dialogue-overlay").fadeIn();
+}
+
+function hideDialogue(dialogue){
+	$(dialogue).hide();
+	$("#dialogue-overlay").fadeOut();
 
 }

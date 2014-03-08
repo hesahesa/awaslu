@@ -1335,13 +1335,12 @@ pemilu.controller.prototype.setReportList = function (data, _view) {
 	//create random ukm list, later fetch it using ajax call
 	for (i = 0; i < 19 ; i++) {
 		var title = "sample_name" + i;
-		var jsonData = [{ "report_id": i, "title": title, "pic_url": "http://stat.ks.kidsklik.com/statics/files/2014/01/13887804611655356549.gif"}];
+		var jsonData = [{ "id": i, "title": title, "picture_url": "http://stat.ks.kidsklik.com/statics/files/2014/01/13887804611655356549.gif"}];
 		console.log(jsonData[0]);
 		this.reports[i] = new pemilu.report(jsonData[0]);
-			_view.bind();
-		pemilu.ui.buildChart(i, jsonData[0]);
-		
-		
+		_view.bind();
+		var dummyStats = [[ new Date("1/1/2012"), 10], [new Date("2/1/2012"),1], [ new Date("3/1/2012"),  4]];
+		pemilu.ui.buildChart(i, dummyStats);		
 	}
 
 	
@@ -1360,7 +1359,15 @@ pemilu.controller.prototype.getMostSharedReportList	= function (_view) {
 ﻿pemilu.report = function (obj) {
     this.id = obj.id;
     this.title = obj.title;
-    this.pic_url = obj.pic_url;
+    this.picture_url = obj.picture_url;
+	this.description = obj.description;
+	this.date = obj.date;
+	this.caleg_id = obj.caleg_id_API;
+	this.latitude = obj.latitude;
+	this.longitude = obj.longitude;
+	this.party_id = obj.party_id_API;
+	this.user_id = this.user_id;
+	this.numbershares = this.numbershares;
 };﻿pemilu.ui.rivets = {}
 pemilu.ui.rivets.setup = function() {
 
@@ -1370,7 +1377,7 @@ pemilu.ui.rivets.setup = function() {
 	    }
 	}
 	
-	rivets.formatters.chartID = {
+	rivets.formatters.chartClass = {
 	    read: function (value) {
 	        return "chart_" + value;
 	    }
@@ -1413,37 +1420,60 @@ pemilu.ui.bind = function ()
 	$("#report-view-most").bind("click", function(){
 		controller.getMostSharedReportList(view);
 	});
+	
+	$("#addReport").bind("click", function(){
+		showDialogue("#dialogue");
+	});
+	
+	$("#dialogue-overlay").bind("click", function(){
+		hideDialogue("#dialogue");
+	});
 }
 
-pemilu.ui.buildChart = function(calegID, jsonData){
-console.log($("#chart_" + String(calegID)).length > 0);
-if ($("#chart_" + calegID).length > 0) {
-console.log("got it");
-	var chartID = 'chart_' + String(calegID);
-	var bars = new Charts.BarChart(chartID, {
-	  bar_width: 25
+pemilu.ui.buildChart = function(calegID, stats){
+var node  = document.getElementsByClassName('chart_' + calegID);
+console.log(node);
+console.log(stats);
+if (node.length > 0) {
+	
+	var chart = new Charts.LineChart(node[0], {
+	show_grid: true
 	});
-
-	bars.add({
-	  label: "foo",
-	  value: 600
-	});
-
-	bars.add({
-	  label: "moo",
-	  value: 800,
+/*
+	for (var i=0;i <= (stats.length - 1);i++){
+			bars.add({
+			  label: stats[i].label,
+			  value: stats[i].value
+			});
+	}
+	bars.draw();
+	*/
+	chart.add_line({
+	  data: stats,
+	  // line level options passed here
 	  options: {
-		bar_color: "#53ba03"
+		line_color: "#00aadd",
+		dot_color: "#00aadd",
+		area_color: "rgba(255,255,255,0)",
+		area_opacity: 0.2,
+		dot_size: 5,
+		line_width: 2 
 	  }
 	});
-
-	bars.add({
-	  label: "doo",
-	  value: 300
-	});
-
-	bars.draw();
+chart.draw();
 }
+
+}
+
+
+function showDialogue(dialogue){
+	$(dialogue).show();
+	$("#dialogue-overlay").fadeIn();
+}
+
+function hideDialogue(dialogue){
+	$(dialogue).hide();
+	$("#dialogue-overlay").fadeOut();
 
 }﻿;pemilu.util.ajaxCall = function () {
 	this.url = ""

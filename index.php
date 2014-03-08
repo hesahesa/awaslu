@@ -26,11 +26,18 @@ $(document).ready(function(){
 
 <div class="gCard" id="nav">
 	<ul>
+		
 		<li id="report-view-all">Awas lu!</li>
 		<li id="report-view-most">Most Shared</li>
+		<li>
+			<div id="addReport">
+			+
+			</div>
+		</li>
 	</ul>
-</div>
 	
+</div>
+
 <div id="wrapper">
 	<div id="news-feed">
 		
@@ -43,11 +50,11 @@ $(document).ready(function(){
 			</div>
 			<div class="post-info"> 
 				<div>
-					<img class="post-image" rv-src="post.pic_url" />
+					<img class="post-image" rv-src="post.picture_url" />
 					<div class="additional-info">
 						<div class="caleg-info">
 							<img src="http://rinaldimunir.files.wordpress.com/2013/04/emil.jpeg" />
-							<div id='chart_1' style='width: 300px; height: 300px;'></div>
+							<div rv-class='post.id | chartClass' style='width: 300px; height: 300px;'></div>
 						</div>
 						<span class="see-more">See More</span>
 					</div>
@@ -64,6 +71,22 @@ $(document).ready(function(){
 	</div>
 	</div>
 </div>
+
+
+<div id="dialogue-container">
+	<div id="dialogue" class="gCard">
+		<div>
+			<form action="./backend/file_uploader.php" " enctype="multipart/form-data" method="post">
+				<label>Caption</label>
+				<input type="text" name="caption" />
+				<label>File</label>
+				<input type="file" name="file" />
+				<input type="submit" name="submit" value="submit" />
+			</form>
+		</div>
+	</div>
+</div>
+<div id="dialogue-overlay"></div>
 
 </body>
 </html>

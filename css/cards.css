@@ -14,9 +14,6 @@
 	-moz-box-sizing: border-box;
 }
 
-.gCard:nth-child(odd){
-	background:#f5f5f5;
-}
 
 .gCard .innerWrapper{
 	padding:10px 17px;
