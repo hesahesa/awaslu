@@ -17,14 +17,9 @@ if ((($_FILES["file"]["type"] == "image/gif")
     }
   else
     {
-    echo "Upload: " . $_FILES["file"]["name"] . "<br>";
-    echo "Type: " . $_FILES["file"]["type"] . "<br>";
-    echo "Size: " . ($_FILES["file"]["size"] / 1024) . " kB<br>";
-    echo "Stored in: " . $_FILES["file"]["tmp_name"];
-    
-	 move_uploaded_file($_FILES["file"]["tmp_name"],
-      "../resources/" . $_FILES["file"]["name"]);
-      echo "Stored in: " . "../resources/" . $_FILES["file"]["name"];
+	$newname = trim(com_create_guid(), '{}').$_FILES["file"]["name"];
+	move_uploaded_file($_FILES["file"]["tmp_name"],
+      "../resources/" . $newname);
 	}
   }
 else
