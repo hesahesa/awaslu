@@ -28,4 +28,28 @@
 		$db = null;
 		return $ret;
 	}
+	
+	function extractdatalaporans($from, $to) {
+		// param : id laporan
+		$db;
+		try {
+			$db = connect_pdo();
+		}
+		catch (PDOException $ex) {
+			return false;
+		}
+		$prepared = $db->prepare("select * from report_tbl order by date desc limit :from , :to ;");
+		$prepared->bindParam(":from", $from, PDO::PARAM_INT);
+        $prepared->bindParam(":to", $to, PDO::PARAM_INT);
+		$status = $prepared->execute();
+		
+		/*if($status)
+			cetakDataPesanan($prepared->fetch());
+		
+		$db = null;
+		return $status;*/
+		$ret = $prepared->fetchAll();
+		$db = null;
+		return $ret;
+	}
 ?>

@@ -17,6 +17,6 @@
 	}
 	else {
 		// not found
-		echo "not found";
+		echo "notfound";
 	}
 ?>
