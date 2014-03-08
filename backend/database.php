@@ -117,7 +117,7 @@
 					SELECT report_id, count(*) as counter FROM shares_tbl GROUP BY report_id
 				) tb2
 				ON report_tbl.id = tb2.report_id
-				where area_id_API like $area_id
+				where area_id_API = '$area_id'
 				order by date desc
 				limit :from, :to;";
 		
