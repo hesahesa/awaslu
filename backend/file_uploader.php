@@ -1,24 +1,30 @@
-<?php
-if( $_FILES['file']['name'] != "" )
-{
-   copy( $_FILES['file']['name'], "../resources" ) or 
-           die( "Could not copy file!");
-}
+   <?php
+$allowedExts = array("gif", "jpeg", "jpg", "png");
+$temp = explode(".", $_FILES["file"]["name"]);
+$extension = end($temp);
+if ((($_FILES["file"]["type"] == "image/gif")
+|| ($_FILES["file"]["type"] == "image/jpeg")
+|| ($_FILES["file"]["type"] == "image/jpg")
+|| ($_FILES["file"]["type"] == "image/pjpeg")
+|| ($_FILES["file"]["type"] == "image/x-png")
+|| ($_FILES["file"]["type"] == "image/png"))
+&& ($_FILES["file"]["size"] < 1000000)
+&& in_array($extension, $allowedExts))
+  {
+  if ($_FILES["file"]["error"] > 0)
+    {
+    echo "Error: " . $_FILES["file"]["error"] . "<br>";
+    }
+  else
+    {
+    echo "Upload: " . $_FILES["file"]["name"] . "<br>";
+    echo "Type: " . $_FILES["file"]["type"] . "<br>";
+    echo "Size: " . ($_FILES["file"]["size"] / 1024) . " kB<br>";
+    echo "Stored in: " . $_FILES["file"]["tmp_name"];
+    }
+  }
 else
-{
-    die("No file specified!");
-}
+  {
+  echo "Invalid file";
+  }
 ?>
-<html>
-<head>
-<title>Uploading Complete</title>
-</head>
-<body>
-<h2>Uploaded File Info:</h2>
-<ul>
-<li>Sent file: <?php echo $_FILES['file']['name'];  ?>
-<li>File size: <?php echo $_FILES['file']['size'];  ?> bytes
-<li>File type: <?php echo $_FILES['file']['type'];  ?>
-</ul>
-</body>
-</html>
