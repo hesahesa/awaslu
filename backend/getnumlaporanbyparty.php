@@ -1,12 +1,12 @@
 <?php
 	include_once "database.php";
 	
-	// getnumlaporanbycaleg.php?caleg_id=[nn]
-	// return json of array of laporan with caleg_id = nn
+	// getnumlaporanbyparty.php?party_id=[nn]
+	// return json of array of laporan with party_id = nn
 	// errors: - nn not exist
-	$caleg_id = $_GET["caleg_id"];
+	$party_id = $_GET["party_id"];
 	
-	$objres = calculatenumberofreport_caleg($caleg_id);
+	$objres = calculatenumberofreport_party($party_id);
 	//print_r($objres);
 	$valid = array_filter($objres);
 

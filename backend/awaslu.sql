@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Mar 08, 2014 at 08:43 
+-- Generation Time: Mar 08, 2014 at 10:26 
 -- Server version: 5.1.41
 -- PHP Version: 5.3.1
 
@@ -32,22 +32,23 @@ CREATE TABLE IF NOT EXISTS `report_tbl` (
   `picture_url` varchar(128) NOT NULL,
   `description` varchar(512) NOT NULL,
   `date` datetime NOT NULL,
-  `caleg_id_API` varchar(64) NOT NULL,
+  `caleg_id_API` varchar(64) DEFAULT NULL,
   `latitude` varchar(64) NOT NULL,
   `longitude` varchar(64) NOT NULL,
   `party_id_API` varchar(64) NOT NULL,
   `user_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 --
 -- Dumping data for table `report_tbl`
 --
 
 INSERT INTO `report_tbl` (`id`, `title`, `picture_url`, `description`, `date`, `caleg_id_API`, `latitude`, `longitude`, `party_id_API`, `user_id`) VALUES
-(1, 'laporan 1', '12345', 'ini deskripsi laporan 1', '2014-03-08 15:56:13', 'caleg id', 'latitude', 'longitude', 'party id', 1),
-(2, 'laporan 2', '1234', 'deskripsi laporan 2', '2014-03-08 16:36:09', 'caleg id', 'latitude', 'longitude', 'party id', 1),
-(3, 'laporan 3', '1234', 'deskripsi laporan 3', '2014-03-08 17:45:28', 'caleg ip', 'latitude', 'longitude', 'party id', 1);
+(1, 'laporan 1', '12345', 'ini deskripsi laporan 1', '2014-03-08 15:56:13', 'calegid-1', 'latitude', 'longitude', 'partyid-1', 1),
+(2, 'laporan 2', '1234', 'deskripsi laporan 2', '2014-03-08 16:36:09', 'calegid-2', 'latitude', 'longitude', 'partyid-1', 1),
+(3, 'laporan 3', '1234', 'deskripsi laporan 3', '2014-03-08 17:45:28', 'calegid-1', 'latitude', 'longitude', 'partyid-1', 1),
+(4, 'laporan 4', 'blaballa', 'deskripsi laporan 4', '2014-03-07 21:12:17', 'calegid-2', 'latitude', 'longitude', 'partyid-1', 3);
 
 -- --------------------------------------------------------
 
