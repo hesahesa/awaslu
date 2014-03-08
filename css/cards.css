@@ -45,10 +45,20 @@
 	-moz-box-sizing: border-box;
 }
 
-.gCard .post-title{
+.gCard .post-title .title{
 	font-size:1.3em;	
-	color:#999;
+	color:#999;;
+	float:left
 }
+
+.gCard .post-title .date{
+	font-size:1em;	
+	color:#aaa;
+	text-decoration:italic;
+	float:right;
+}
+
+
 
 .gCard .post-info-likes{
 	float:left;
