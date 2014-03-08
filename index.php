@@ -83,13 +83,26 @@ $(document).ready(function(){
 <div id="dialogue-container">
 	<div id="dialogue" class="gCard">
 		<div>
-			<form action="./backend/file_uploader.php" " enctype="multipart/form-data" method="post">
-				<label>Caption</label>
-				<input type="text" name="caption" />
-				<label>File</label>
-				<input type="file" name="file" />
-				<input type="submit" name="submit" value="submit" />
+			<form id="uploadForm" action="./backend/file_uploader.php" enctype="multipart/form-data" method="post">
+				<fieldset>
+				<legend>Upload Gambar</legend>
+
+				<input type="hidden" id="MAX_FILE_SIZE" name="MAX_FILE_SIZE" value="1000000" />
+				<input type="hidden" id="FILE_UPLOAD_URL" name="FILE_UPLOAD_URL" value="" />
+
+				<div>
+					<label for="fileselect">Files to upload:</label>
+					<input type="file" id="fileselect" name="fileselect[]" multiple="multiple" />
+					<div id="filedrag">or drop files here</div>
+				</div>
+
+				<div id="submitbutton">
+					<button id="submitbuttontext" type="submit">Upload Files</button>
+				</div>
+
+				</fieldset>
 			</form>
+			<div id="progress"></div>
 		</div>
 	</div>
 </div>

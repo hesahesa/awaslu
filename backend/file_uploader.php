@@ -1,29 +1,42 @@
-   <?php
-$allowedExts = array("gif", "jpeg", "jpg", "png");
-$temp = explode(".", $_FILES["file"]["name"]);
-$extension = end($temp);
-if ((($_FILES["file"]["type"] == "image/gif")
-|| ($_FILES["file"]["type"] == "image/jpeg")
-|| ($_FILES["file"]["type"] == "image/jpg")
-|| ($_FILES["file"]["type"] == "image/pjpeg")
-|| ($_FILES["file"]["type"] == "image/x-png")
-|| ($_FILES["file"]["type"] == "image/png"))
-&& ($_FILES["file"]["size"] < 1000000)
-&& in_array($extension, $allowedExts))
-  {
-  if ($_FILES["file"]["error"] > 0)
-    {
-    echo "Error: " . $_FILES["file"]["error"] . "<br>";
-    }
-  else
-    {
-	$newname = trim(com_create_guid(), '{}').$_FILES["file"]["name"];
-	move_uploaded_file($_FILES["file"]["tmp_name"],
-      "../resources/" . $newname);
+<?php
+/*
+Server-side PHP file upload code for HTML5 File Drag & Drop demonstration
+Featured on SitePoint.com
+Developed by Craig Buckler (@craigbuckler) of OptimalWorks.net
+*/
+$fn = (isset($_SERVER['HTTP_X_FILENAME']) ? $_SERVER['HTTP_X_FILENAME'] : false);
+
+if ($fn) {
+
+	$newname = trim(com_create_guid(), '{}').$fn;
+	// AJAX call
+	file_put_contents(
+		'uploads/' . $newname,
+		file_get_contents('php://input')
+	);
+	$result = json_encode(array('status' => 'success', 'file_name' => $newname), JSON_FORCE_OBJECT);
+	echo $result;
+	exit();
+}
+else {
+
+	// form submit
+	$files = $_FILES['fileselect'];
+
+	foreach ($files['error'] as $id => $err) {
+		if ($err == UPLOAD_ERR_OK) {
+			$fn = $files['name'][$id];
+			$newname = trim(com_create_guid(), '{}').$fn;
+			move_uploaded_file(
+				$files['tmp_name'][$id],
+				'uploads/' . $newname
+			);
+			$result = json_encode(array('status' => 'success', 'file_name' => $newname), JSON_FORCE_OBJECT);
+			echo $result;
+		}
 	}
-  }
-else
-  {
-  echo "Invalid file";
-  }
+	exit();
+}
+$result = json_encode(array('status' => 'failed', 'file_url' => 'failed'), JSON_FORCE_OBJECT);
+echo $result;
 ?>
