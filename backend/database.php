@@ -6,34 +6,34 @@
 		return $db;
 	}
 	
-	function storelaporan($title, $url, $desc, $date, $caleg_id_api, $latitude, $longitude, $party_id_api, $user_id){
+	function storelaporan($title, $url, $desc, $caleg_id_api, $latitude, $longitude, $party_id_api, $user_id, $area_id){
 		$db;
 		try {
 			$db = connect_pdo();
+			$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 		}
 		catch (PDOException $ex) {
 			return false;
 		}
 		
 		  // Define an insert query
-		$prepared = $db->prepare("INSERT INTO report_tbl (title, picture_url,description,`date`,caleg_id_API,latitude,longitude,party_id_API,user_id)
+		$prepared = $db->prepare("INSERT INTO report_tbl (title, picture_url,description,`date`,caleg_id_API,latitude,longitude,party_id_API,user_id,area_id_API)
 			VALUES
-			  (:title, :url, :desc, :date, :caleg_id_api, :latitude, :longitude, :party_id_api, :user_id)");
+			  (:title, :url, :desc, NOW(), :caleg_id_api, :latitude, :longitude, :party_id_api, :user_id, :area_id);");
 		$prepared->bindParam(":title", $title);
         $prepared->bindParam(":url", $url);
 		$prepared->bindParam(":desc", $desc);
-		$prepared->bindParam(":date", $date);
 		$prepared->bindParam(":caleg_id_api", $caleg_id_api);
 		$prepared->bindParam(":latitude", $latitude);
 		$prepared->bindParam(":longitude", $longitude);
 		$prepared->bindParam(":party_id_api", $party_id_api);
 		$prepared->bindParam(":user_id", $user_id);
+		$prepared->bindParam(":area_id", $area_id);
 		$status = $prepared->execute(); 
-		
 
 		$db = null;        // Disconnect
 		
-		return $status;		
+		return array("status" => $status);		
 	}
 	function extractdatalaporan($id) {
 		// param : id laporan

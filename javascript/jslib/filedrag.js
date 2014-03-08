@@ -37,7 +37,7 @@ Developed by Craig Buckler (@craigbuckler) of OptimalWorks.net
 
 		// process all File objects
 		for (var i = 0, f; f = files[i]; i++) {
-			ParseFile(f);
+			//ParseFile(f);
 			UploadFile(f);
 		}
 
@@ -107,6 +107,9 @@ Developed by Craig Buckler (@craigbuckler) of OptimalWorks.net
 					console.log(xhr.response);
 					$id("FILE_UPLOAD_URL").value = xhr.response;
 					$id("submitbuttontext").innerHTML = "Kirim Laporan";
+					$id("detailField").style.display = "block";
+					$id("submitbutton").style.display = "block";
+					$id("uploadField").style.display = "none";
 				}
 			};
 
@@ -125,7 +128,8 @@ Developed by Craig Buckler (@craigbuckler) of OptimalWorks.net
 
 		var fileselect = $id("fileselect"),
 			filedrag = $id("filedrag"),
-			submitbutton = $id("submitbutton");
+			submitbutton = $id("submitbutton"),
+			detailField = $id("detailField");
 
 		// file select
 		fileselect.addEventListener("change", FileSelectHandler, false);
@@ -142,6 +146,7 @@ Developed by Craig Buckler (@craigbuckler) of OptimalWorks.net
 
 			// remove submit button
 			submitbutton.style.display = "none";
+			detailField.style.display = "none";
 		}
 
 	}

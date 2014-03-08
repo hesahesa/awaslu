@@ -88,9 +88,20 @@ $(document).ready(function(){
 				<legend>Upload Gambar</legend>
 
 				<input type="hidden" id="MAX_FILE_SIZE" name="MAX_FILE_SIZE" value="1000000" />
-				<input type="hidden" id="FILE_UPLOAD_URL" name="FILE_UPLOAD_URL" value="" />
+				<input type="hidden" id="FILE_UPLOAD_URL" name="picture_url" value="" />
+				
+				<div id="detailField">
+				Judul Laporan : <input type="text" id="titleLaporan" name="title" value="" /> <br />
+				Deskripsi Laporan : <input type="text" id="deskripsiLaporan" name="description" value="" /> <br />
+				Caleg ID : <input type="text" id="calegID" name="caleg_id_API" value="" /> <br />
+				Latitude : <input type="text" id="latitude" name="latitude" value="" /> <br />
+				Longitude : <input type="text" id="longitude" name="longitude" value="" /> <br />
+				Party ID : <input type="text" id="partyID" name="party_id_API" value="" /> <br />
+				user ID : <input type="text" id="userID" name="user_id" value="" /> <br />
+				Area ID : <input type="text" id="areaID" name="area_id" value="" /> <br />
+				</div>
 
-				<div>
+				<div id="uploadField">
 					<label for="fileselect">Files to upload:</label>
 					<input type="file" id="fileselect" name="fileselect[]" multiple="multiple" />
 					<div id="filedrag">or drop files here</div>
@@ -107,6 +118,6 @@ $(document).ready(function(){
 	</div>
 </div>
 <div id="dialogue-overlay"></div>
-
+<script src="./javascript/jslib/filedrag.js"></script>
 </body>
 </html>

@@ -4,6 +4,34 @@ Server-side PHP file upload code for HTML5 File Drag & Drop demonstration
 Featured on SitePoint.com
 Developed by Craig Buckler (@craigbuckler) of OptimalWorks.net
 */
+include_once "database.php";
+$filePath = (isset($_POST['picture_url']) ? $_POST['picture_url'] : false);
+
+if($filePath) {	
+	// writenewlaporan.php
+	// method POST
+	// param title, picture_url,description,date,caleg_id_API,latitude,longitude,party_id_API,user_id
+	// return json of status
+	// errors: - nn not exist
+	extract($_POST);
+	
+	$objres = storelaporan($title, $picture_url, $description, $caleg_id_API, $latitude, $longitude, $party_id_API, $user_id, $area_id);
+
+	//print_r($objres);
+	$valid = array_filter($objres);
+
+	if (!empty($valid)) {
+		// found
+		echo json_encode($objres);
+	}
+	else {
+		// not found
+		echo "notfound";
+	}
+	exit();
+}
+
+
 $fn = (isset($_SERVER['HTTP_X_FILENAME']) ? $_SERVER['HTTP_X_FILENAME'] : false);
 
 if ($fn) {
