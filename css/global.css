@@ -95,6 +95,17 @@ a.iButton{
 	clear:both;
 }
 
+.additional-info .description{
+	float:left;
+	clear:both;
+}
+
+.additional-info .see-more{
+	float:left;
+	clear:both;
+	
+	
+}
 
 /* Dialogue */
 #dialogue-overlay{

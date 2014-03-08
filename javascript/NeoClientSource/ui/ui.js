@@ -6,7 +6,6 @@
     pemilu.ui.rivets.bind();
     pemilu.ui.rivets.setup();
     pemilu.ui.bind();
-	controller.getGeoLocation();
 	controller.getAllReport(1,view);
 }
 

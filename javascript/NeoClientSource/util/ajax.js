@@ -41,7 +41,7 @@ pemilu.util.ajaxCall.prototype.getReport = function (reportID, callback) {
 };
 
 pemilu.util.ajaxCall.prototype.getAllReportByAreaID = function (areaID, pageNum, callback) {
-	this.url = pemilu.config.GET_ALL_LAPORAN_BY_AREA_ID + "?areaID=" + areaID + "&pagenum=" +  pageNum;
+	this.url = pemilu.config.GET_ALL_LAPORAN_BY_AREA_ID + "?area_id=" + areaID + "&pagenum=" +  pageNum;
 	$.ajax(this.url, {
 		type: "GET",
 		dataType: "json"

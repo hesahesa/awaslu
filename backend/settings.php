@@ -1,6 +1,6 @@
 <?php
 	define("HOST", "localhost");
 	define("USER", "root");
-	define("PASS", "inipasswordku");
+	define("PASS", "");
 	define("DBNAME", "awaslu");
 ?>

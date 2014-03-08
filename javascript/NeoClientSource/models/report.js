@@ -10,5 +10,4 @@
 	this.party_id = obj.party_id_API;
 	this.user_id = this.user_id;
 	this.sharecounter = this.sharecounter;
-	
 };

@@ -11,8 +11,7 @@ pemilu.controller.prototype.getGeoLocation = function(callback){
   if (navigator.geolocation) {
 	navigator.geolocation.getCurrentPosition(function(position){
 		_this.geoLocation = [position.coords.latitude, position.coords.longitude];
-		console.log(_this.geoLocation);
-		//callback(_this.geoLocation);
+		callback(_this.geoLocation);
 	});
   }
   else{
@@ -20,11 +19,10 @@ pemilu.controller.prototype.getGeoLocation = function(callback){
   }
 };
 
-pemilu.controller.prototype.getArea = function(geoLocation){
-	console.log(geoLocation);
+pemilu.controller.prototype.getArea = function(geoLocation, callback){
 		var ajaxCall = new pemilu.util.ajaxCall();
 		ajaxCall.getArea(geoLocation, function (response) {
-			_this.setArea(response);
+			callback(response);
 		});
 	
 };
@@ -32,17 +30,23 @@ pemilu.controller.prototype.getArea = function(geoLocation){
 
 
 pemilu.controller.prototype.getAllReport = function (pageNum, _view) {
+console.log("get all reported");
 	this.getGeoLocation( function(position){	
 		var ajaxCall = new pemilu.util.ajaxCall();
 		if (position !=null){	
-		_this.getArea(position);	
-			for (var i; i < _this.area.length ; i++){
-				ajaxCall.getAllReportByAreaID(_this.area[i], pageNum, function (response) {
+		_this.getArea(position, function(area_response){
+			_this.setArea(area_response);
+			for (var i=0; i < _this.area.length ; i++){
+				ajaxCall.getAllReportByAreaID(_this.area[i].id, pageNum, function (response) {
+				console.log(response);
 					_this.setReportList(response, _view);
 					//force to re-bind
 					_view.bind();
 				});
 			}
+			
+		});
+		
 		}else{
 			ajaxCall.getAllReport( pageNum, function (response) {
 					_this.setReportList(response, _view);
@@ -108,8 +112,9 @@ pemilu.controller.prototype.setReportList = function (data, _view) {
 			this.reports.push(new pemilu.report(data[i]));
 			_view.bind();
 			var dummyStats = [[ new Date("1/1/2012"), 3], [new Date("2/1/2012"),15], [ new Date("3/1/2012"),  34],[ new Date("4/1/2012"), 10], [new Date("5/1/2012"),1], [ new Date("6/1/2012"),  4],[ new Date("7/1/2012"), 10], [new Date("8/1/2012"),1], [ new Date("9/1/2012"),  4]];
-			pemilu.ui.buildChart(i, dummyStats);		
+			
 		}
+		pemilu.ui.buildChart(i, dummyStats);		
 	}	
 	
 };
