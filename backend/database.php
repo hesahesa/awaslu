@@ -6,7 +6,7 @@
 		return $db;
 	}
 	
-	function storelaporan ($title, $url, $desc, $date, $caleg_id_api, $latitude, $longitude, $party_id_api, $user_id){
+	function storelaporan($title, $url, $desc, $date, $caleg_id_api, $latitude, $longitude, $party_id_api, $user_id){
 		$db;
 		try {
 			$db = connect_pdo();
