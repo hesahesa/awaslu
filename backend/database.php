@@ -100,6 +100,42 @@
 		$db = null;
 		return $ret;
 	}
+
+	function extractdatalaporansbyarea($from, $to, $area_id) {
+		// param : span pagination
+		$db;
+		try {
+			$db = connect_pdo();
+		}
+		catch (PDOException $ex) {
+			return false;
+		}
+		
+		$string_prep_query = "SELECT id, title, picture_url, description, `date`, caleg_id_API, latitude, longitude, party_id_API, user_id , coalesce(counter, 0) as sharecounter
+				FROM report_tbl
+				LEFT OUTER JOIN (
+					SELECT report_id, count(*) as counter FROM shares_tbl GROUP BY report_id
+				) tb2
+				ON report_tbl.id = tb2.report_id
+				where area_id_API = :area_id
+				order by date desc
+				limit :from, :to;";
+		
+		$prepared = $db->prepare($string_prep_query);
+		$prepared->bindParam(":from", $from, PDO::PARAM_INT);
+        $prepared->bindParam(":to", $to, PDO::PARAM_INT);
+		$prepared->bindParam(":area_id", $area_id);
+		$status = $prepared->execute();
+		
+		/*if($status)
+			cetakDataPesanan($prepared->fetch());
+		
+		$db = null;
+		return $status;*/
+		$ret = $prepared->fetchAll();
+		$db = null;
+		return $ret;
+	}
 	
 	function extractdatalaporansshared($from, $to) {
 		// param : span pagination
