@@ -1315,14 +1315,14 @@ pemilu.config = {
     this.user_name = obj.user_name;
     this.full_name = obj.full_name
     this.UKM_ID = ukm_id;
-};﻿bbmk.controller = function () {
+};﻿pemilu.controller = function () {
     _this = this;
     this.reports = [];
     this.hasReport = false;
     this.totReport = 0;
 
     this.getReportList = function (_view) {
-        var ajaxCall = new bbmk.util.ajaxCall();
+        var ajaxCall = new pemilu.util.ajaxCall();
         ajaxCall.getReportList(function (response) {
             _this.setReportList(response, _view);
             //force to re-bind
@@ -1336,7 +1336,7 @@ pemilu.config = {
 			var report_title = "sample_name" + i;
             var jsonData = [{ "report_id": i, "report_title": report_title}];
             console.log(jsonData[0]);
-            this.ukm_list[i] = new bbmk.report(jsonData[0]);
+            this.reports[i] = new pemilu.report(jsonData[0]);
         }
 		_view.bind();
     }
@@ -1364,8 +1364,8 @@ pemilu.ui.rivets.setup = function() {
  * Unlike normal jQuery bindings it doesn't have to be recalled if you inject new elements into the UI.
  */
 pemilu.ui.rivets.bind = function () {
-    view = rivets.bind($("#ukmList"),{
-        controllerUKM: controllerUKM
+    view = rivets.bind($("#report-list"),{
+        controller: controller
     });
 };﻿pemilu.ui.ready = function () {
 

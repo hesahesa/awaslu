@@ -1,11 +1,11 @@
-﻿bbmk.controller = function () {
+﻿pemilu.controller = function () {
     _this = this;
     this.reports = [];
     this.hasReport = false;
     this.totReport = 0;
 
     this.getReportList = function (_view) {
-        var ajaxCall = new bbmk.util.ajaxCall();
+        var ajaxCall = new pemilu.util.ajaxCall();
         ajaxCall.getReportList(function (response) {
             _this.setReportList(response, _view);
             //force to re-bind
@@ -19,7 +19,7 @@
 			var report_title = "sample_name" + i;
             var jsonData = [{ "report_id": i, "report_title": report_title}];
             console.log(jsonData[0]);
-            this.ukm_list[i] = new bbmk.report(jsonData[0]);
+            this.reports[i] = new pemilu.report(jsonData[0]);
         }
 		_view.bind();
     }
