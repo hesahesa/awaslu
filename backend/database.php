@@ -106,6 +106,7 @@
 		$db;
 		try {
 			$db = connect_pdo();
+			$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 		}
 		catch (PDOException $ex) {
 			return false;
@@ -117,16 +118,16 @@
 					SELECT report_id, count(*) as counter FROM shares_tbl GROUP BY report_id
 				) tb2
 				ON report_tbl.id = tb2.report_id
-				where area_id_API = '$area_id'
+				where area_id_API like :area_id
 				order by date desc
 				limit :from, :to;";
 		
 		$prepared = $db->prepare($string_prep_query);
 		$prepared->bindParam(":from", $from, PDO::PARAM_INT);
         $prepared->bindParam(":to", $to, PDO::PARAM_INT);
-		//$prepared->bindParam(":area_id", $area_id);
+		$prepared->bindParam(":area_id", $area_id);
 		$status = $prepared->execute();
-		
+
 		/*if($status)
 			cetakDataPesanan($prepared->fetch());
 		

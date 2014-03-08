@@ -1,7 +1,7 @@
 <?php
 	include_once "database.php";
 	
-	// getalllaporan.php?pagenum=[nn]&pagesize=[oo]
+	// getalllaporan.php?area_id=[pp]&pagenum=[nn]&pagesize=[oo]
 	// return json of array of laporan with page number = nn, with page size oo
 	// errors: - nn not exist
 	$area_id = $_GET["area_id"];
