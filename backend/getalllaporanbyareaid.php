@@ -15,7 +15,7 @@
 	// need to sanitize input, but aint nobody got time fo dat
 	$from = ($pagenum - 1) * $pagesize;
 	$to = $from + $pagesize - 1;
-	$objres = extractdatalaporans($from, $to, $area_id);
+	$objres = extractdatalaporansbyarea($from, $to, $area_id);
 	//print_r($objres);
 	$valid = array_filter($objres);
 
