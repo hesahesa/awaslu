@@ -2,6 +2,9 @@
 pemilu.util  = {};
 pemilu.ui    = {};
 pemilu.config = {
+	API_BASE_URL : "http://api.pemiluapi.org/",
+	API_PEMILU_KEY : "426c044849d8f98b1591c2643275eca3",
+	GET_AREA : API_BASE_URL + "geographic/api/point?apiKey=" + API_PEMILU_KEY,
     GET_ALL_LAPORAN : "./backend/getalllaporan.php",
 	GET_LAPORAN : "./backend/getlaporan.php",
 	GET_MOST_SHARED_LAPORAN : "./backend/getmostsharedlaporan.php",
@@ -1310,30 +1313,97 @@ pemilu.config = {
     Rivets.factory(this.rivets = {});
   }
 
-}).call(this);﻿pemilu.user = function (obj, ukm_id) {
-    this.user_id = obj.user_id;
-    this.user_name = obj.user_name;
-    this.full_name = obj.full_name
-    this.UKM_ID = ukm_id;
-};﻿pemilu.controller = function () {
+}).call(this);pemilu.area = function (obj) {
+    this.kind = obj.kind;
+    this.id = obj.id;
+    this.nama = obj.nama;
+    this.lembaga = obj.lembaga;
+};﻿pemilu.caleg = function (obj) {
+    this.id = obj.id;
+    this.tahun = obj.tahun;
+    this.lembaga = obj.lembaga
+    this.jenis_kelamin =  obj.jenis_kelamin;
+	this.agama = obj.agama;
+	this.tempat_lahir = obj.tempat_lahir;
+	this.status_perkawinan = obj.status_perkawinan;
+	this.nama_pasangan = obj.nama_pasangan;
+	this.jumlah_anak = obj.jumlah_anak;
+	this.kelurahan_tinggal = obj.kelurahan_tinggal;
+	this.kecamatan_tinggal = obj.kecamatan_tinggal;
+	this.provinsi_tinggal = {
+		id : obj.provinsi.id,
+		nama : obj.provinsi.nama
+	};
+	this.dapil = {
+		id: obj.dapil.id,
+		nama : obj.dapil.nama
+	};
+	this.partai = obj.partai;
+	this.urutan = obj.urutan;
+	this.foto_url = obj.foto_url;
+	this.kab_kota_tinggal = obj.kab_kota_tinggal;
+	
+};
+﻿pemilu.controller = function () {
     _this = this;
     this.reports = [];
     this.hasReport = false;
     this.totReport = 0;
+	this.geoLocation = null;
+	this.area = [];
 };
 
+pemilu.controller.prototype.getGeoLocation = function(){
+  if (navigator.geolocation) {
+	navigator.geolocation.getCurrentPosition(function(position){
+		this.geoLocation = [position.coords.latitude, position.coords.longitude];
+	});
+  }
+  else{
+	this.geoLocation = null;
+  }
+};
+
+pemilu.controller.prototype.getArea = function(geoLocation){
+	
+		var ajaxCall = new pemilu.util.ajaxCall();
+		ajaxCall.getArea(geoLocation, function (response) {
+			_this.setArea(response, _view);
+			//force to re-bind
+			_view.bind();
+		});
+	
+};
+
+
+
 pemilu.controller.prototype.getAllReport = function (pageNum, _view) {
+	this.getGeoLocation();
+	this.getArea();
+
 	var ajaxCall = new pemilu.util.ajaxCall();
-	ajaxCall.getAllReport(pageNum, function (response) {
+	
+	for (var i; i < this.area.length ; i++){
+		ajaxCall.getAllReport(_this.area[i], pageNum, function (response) {
+			_this.setReportList(response, _view);
+			//force to re-bind
+			_view.bind();
+		});
+	}
+};
+
+pemilu.controller.prototype.getMostSharedReportList = function (pageNum, _view) {
+	var ajaxCall = new pemilu.util.ajaxCall();
+	ajaxCall.getMostSharedReportList(pageNum, function (response) {
 		_this.setReportList(response, _view);
 		//force to re-bind
 		_view.bind();
 	});
 };
 
-pemilu.controller.prototype.getMostSharedReportList = function (pageNum, _view) {
+pemilu.controller.prototype.getReportByArea = function (areaID, _view) {
 	var ajaxCall = new pemilu.util.ajaxCall();
-	ajaxCall.getMostSharedReportList(pageNum, function (response) {
+	ajaxCall.getReportByArea(areaID, function (response) {
 		_this.setReportList(response, _view);
 		//force to re-bind
 		_view.bind();
@@ -1371,18 +1441,26 @@ pemilu.controller.prototype.getTotReportByParty = function (partyID, _view) {
 
 
 pemilu.controller.prototype.setReportList = function (data, _view) {
-	//create random ukm list, later fetch it using ajax call
 	if (data !=null ){
 		for (var i = 0; i <= (data.length -1 ) ; i++) {
-			this.reports[i] = new pemilu.report(data[i]);
+			this.reports.push(new pemilu.report(data[i]));
 			_view.bind();
 			var dummyStats = [[ new Date("1/1/2012"), 3], [new Date("2/1/2012"),15], [ new Date("3/1/2012"),  34],[ new Date("4/1/2012"), 10], [new Date("5/1/2012"),1], [ new Date("6/1/2012"),  4],[ new Date("7/1/2012"), 10], [new Date("8/1/2012"),1], [ new Date("9/1/2012"),  4]];
 			pemilu.ui.buildChart(i, dummyStats);		
 		}
-	}
-
-
+	}	
 	
+};
+
+
+pemilu.controller.prototype.setArea = function (data, _view) {
+	//create random ukm list, later fetch it using ajax call
+	if (data !=null ){	
+		for (var i = 0; i <= (data.data.results.area.length -1 ) ; i++) {
+			this.area[i] = new pemilu.area(data.data.results.area[i]);
+			_view.bind();	
+		}
+	}	
 	
 };
 
@@ -1443,7 +1521,7 @@ pemilu.ui.rivets.bind = function () {
     pemilu.ui.rivets.bind();
     pemilu.ui.rivets.setup();
     pemilu.ui.bind();
-
+	controller.getGeoLocation();
 	controller.getAllReport(1,view);
 }
 
@@ -1471,8 +1549,6 @@ pemilu.ui.bind = function ()
 
 pemilu.ui.buildChart = function(calegID, stats){
 var node  = document.getElementsByClassName('chart_' + calegID);
-console.log(node);
-console.log(stats);
 if (node.length > 0) {
 	
 	var chart = new Charts.LineChart(node[0], {
@@ -1517,8 +1593,37 @@ function hideDialogue(dialogue){
 	$(dialogue).hide();
 	$("#dialogue-overlay").fadeOut();
 
+}
+
+function getCurCoordinate() {
+  if (navigator.geolocation) {
+	navigator.geolocation.getCurrentPosition(showPosition);
+  }
+  else{
+	return "notsupported";
+  }
+}
+
+function showPosition(position) {
+  var latitude = position.coords.latitude; 
+  var longitude = position.coords.longitude;
+  var geo = [latitude, longitude];
+  return geo;
 }﻿;pemilu.util.ajaxCall = function () {
 	this.url = ""
+};
+
+pemilu.util.ajaxCall.prototype.getArea = function (geoLocation, callback) {
+	this.url = pemilu.config.GET_AREA + "?laitude=" + geoLocation[0] + "&longitude=" + geoLocation[1] ;
+	$.ajax(this.url, {
+		type: "GET",
+		dataType: "json"
+	}).done(function (data, textStatus, jqXHR) {
+		callback(data);
+	}).fail(function (jqXHR, textStatus, errorThrown) {
+		console.log(errorThrown);
+		// ADD ERROR CALLBACK
+	});
 };
 
 pemilu.util.ajaxCall.prototype.getMostSharedReportList = function (pageNum, callback) {
@@ -1546,8 +1651,8 @@ pemilu.util.ajaxCall.prototype.getReport = function (reportID, callback) {
 	});
 };
 
-pemilu.util.ajaxCall.prototype.getAllReport = function (pageNum, callback) {
-	this.url = pemilu.config.GET_ALL_LAPORAN + "?pagenum=" +  pageNum;
+pemilu.util.ajaxCall.prototype.getAllReport = function (areaID, pageNum, callback) {
+	this.url = pemilu.config.GET_ALL_LAPORAN + "?areaID=" + areaID + "&pagenum=" +  pageNum;
 	$.ajax(this.url, {
 		type: "GET",
 		dataType: "json"
