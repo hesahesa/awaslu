@@ -39,7 +39,7 @@
 	}
 	
 	function extractdatalaporans($from, $to) {
-		// param : id laporan
+		// param : span pagination
 		$db;
 		try {
 			$db = connect_pdo();
@@ -73,7 +73,7 @@
 	}
 	
 	function extractdatalaporansshared($from, $to) {
-		// param : id laporan
+		// param : span pagination
 		$db;
 		try {
 			$db = connect_pdo();
@@ -94,6 +94,32 @@
 		$prepared = $db->prepare($string_prep_query);
 		$prepared->bindParam(":from", $from, PDO::PARAM_INT);
         $prepared->bindParam(":to", $to, PDO::PARAM_INT);
+		$status = $prepared->execute();
+		
+		/*if($status)
+			cetakDataPesanan($prepared->fetch());
+		
+		$db = null;
+		return $status;*/
+		$ret = $prepared->fetchAll();
+		$db = null;
+		return $ret;
+	}
+	
+	function calculatenumberofreport($caleg_id) {
+		// param : caleg id
+		$db;
+		try {
+			$db = connect_pdo();
+		}
+		catch (PDOException $ex) {
+			return false;
+		}
+		
+		$string_prep_query = "SELECT DATE(`date`) as date, count(*) as value FROM `report_tbl` where caleg_id_API = :caleg_id group by DATE(`date`)";
+		
+		$prepared = $db->prepare($string_prep_query);
+		$prepared->bindParam(":caleg_id", $caleg_id);
 		$status = $prepared->execute();
 		
 		/*if($status)
