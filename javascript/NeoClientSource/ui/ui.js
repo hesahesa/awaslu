@@ -69,8 +69,9 @@ chart.draw();
 
 
 function showDialogue(dialogue){
-	$(dialogue).show();
-	$("#dialogue-overlay").fadeIn();
+	
+	$("#dialogue-overlay").show();
+	$(dialogue).fadeIn();
 }
 
 function hideDialogue(dialogue){

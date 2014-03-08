@@ -1,7 +1,7 @@
 <html>
 <head>
 <meta name="viewport" content="initial-scale=1, maximum-scale=1, width=device-width" >
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="javascript/jslib/jquery.min.js"></script>
 <script type="text/javascript" src="javascript/jslib/raphael.min.js"></script>
 <script type="text/javascript" src="javascript/jslib/charts.min.js"></script>
 <script type="text/javascript" src="javascript/NeoClient/client.js"></script>

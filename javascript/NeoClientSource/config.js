@@ -8,6 +8,7 @@ pemilu.api = {
 pemilu.config = {
 	
 	GET_AREA : pemilu.api.API_BASE_URL + "geographic/api/point?apiKey=" + pemilu.api.API_PEMILU_KEY,
+	GET_CALEG : "",
     GET_ALL_LAPORAN : "./backend/getalllaporan.php",
 	GET_ALL_LAPORAN_BY_AREA_ID : "./backend/getalllaporanbyareaid.php",
 	GET_LAPORAN : "./backend/getlaporan.php",
