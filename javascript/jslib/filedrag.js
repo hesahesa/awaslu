@@ -105,7 +105,7 @@ Developed by Craig Buckler (@craigbuckler) of OptimalWorks.net
 				if (xhr.readyState == 4) {
 					progress.className = (xhr.status == 200 ? "success" : "failure");
 					console.log(xhr.response);
-					$id("FILE_UPLOAD_URL").value = xhr.response;
+					$id("FILE_UPLOAD_URL").value = (JSON.parse(xhr.response)).file_name;
 					$id("submitbuttontext").innerHTML = "Kirim Laporan";
 					$id("detailField").style.display = "block";
 					$id("submitbutton").style.display = "block";
