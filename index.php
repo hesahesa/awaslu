@@ -21,7 +21,7 @@ $(document).ready(function(){
 
 <div class="gCard" id="nav">
 	<ul>
-		<li id="report-view-all">Home</li>
+		<li id="report-view-all">Awas lu!</li>
 		<li id="report-view-most">Most Shared</li>
 	</ul>
 </div>
@@ -36,8 +36,16 @@ $(document).ready(function(){
 			<div class="post-title">
 				<span>{ post.title }</span>
 			</div>
-			<div class="post-image">
-				<span><img rv-src="post.pic_url" /></span>
+			<div class="post-info"> 
+				<div>
+					<img class="post-image" rv-src="post.pic_url" />
+					<div class="additional-info">
+						<div class="caleg-info">
+							<img src="http://rinaldimunir.files.wordpress.com/2013/04/emil.jpeg" />
+						</div>
+						<span class="see-more">See More</span>
+					</div>
+				</div>
 			</div>
 			<div class="post-info">
 				<div class="post-info-likes"></div>

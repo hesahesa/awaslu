@@ -1,6 +1,6 @@
 html, body{
 	font-family: "Open Sans","Roboto", sans-serif;
-	background:#fafafa;
+	background:#ededed;
 }
 
 a.iButton{
@@ -10,7 +10,7 @@ a.iButton{
 	text-decoration:none;
 	float:right;
 	font-weight:100;
-	font-size:2em;
+	font-size:1.7em;
 }
 
 #wrapper{
@@ -32,7 +32,8 @@ a.iButton{
 }
 
 #nav ul {
-	
+	width: 1024px;
+	margin: auto;
 	box-sizing:border-box;
 	-webkit-box-sizing:border-box;
 }
@@ -45,10 +46,31 @@ a.iButton{
 	text-align: center;
 	text-shadow: 0 1px 1px rgba(255,255,255,0.5);
 	text-transform: uppercase;
+	cursor:pointer;
+	
 }
 
 #report-list{
 	margin-top: 40px;
+}
+
+#nav ul li#report-view-all{
+	font-weight: bold;
+	background: brown;
+	border: 1px solid #aaa;
+	border-bottom: 0;
+	border-top: 0;
+	margin-left: 16px;
+}
+
+.post-info .additional-info{
+	position:relative;
+}
+.post-info .caleg-info img{
+	position:absolute;
+	left:5px;
+	top:0;
+	width:32px;
 }
 
 .clearthis{

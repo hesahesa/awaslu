@@ -1,7 +1,23 @@
 #wrapper{
 	width:100%;
 	height:100%;
-	padding:20px;
+	padding:0;
 	box-sizing:border-box;
 	-webkit-box-sizing:border-box;
+}
+
+#report-list{
+	margin-top: 52px;
+}
+
+.gCard{
+	margin:5px 0;
+}
+
+.gCard .additional-info{
+	display:none;
+}
+
+.gCard img.post-image{
+	width:100%;
 }

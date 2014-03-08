@@ -1,7 +1,7 @@
 .gCard{
-	margin:5px 0;
+	margin:10px 0;
 	background:#fff;
-	box-shadow:0px 0px 2px 0px rgba(0,0,0,0.3);
+	box-shadow:0px 0px 1px 1px rgba(0,0,0,0.2);
 	font-size:14px;	
 	border-radius:3px;
 	float:left;
@@ -10,6 +10,7 @@
 	font-family: "Open Sans","Roboto", sans-serif;
 	box-sizing:border-box;
 	-webkit-box-sizing:border-box;
+	-moz-box-sizing: border-box;
 }
 
 .gCard:nth-child(odd){
@@ -21,23 +22,32 @@
 }
 
 .innerWrapper > div {
-	margin-bottom:10px;
+	margin-bottom:5px;
 	float: left;
 	width: 100%;
 }
 
-.gCard .post-image img{
+.gCard img.post-image{
 	padding:5px;
 	background:#fff;
 	border:1px solid #ddd;
-	width:100%;
+	width:50%;
 	float: left;
 	box-sizing: border-box;
 	-webkit-box-sizing: border-box;
-	
+	-moz-box-sizing: border-box;
+}
+
+.gCard .additional-info{
+	width:50%;
+	float:left;
+	padding: 0 10px;
+	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
 }
 
 .gCard .post-title{
 	font-size:1.3em;	
-	color:#777;
+	color:#999;
 }
