@@ -80,3 +80,19 @@ function hideDialogue(dialogue){
 	$("#dialogue-overlay").fadeOut();
 
 }
+
+function getCurCoordinate() {
+  if (navigator.geolocation) {
+	navigator.geolocation.getCurrentPosition(showPosition);
+  }
+  else{
+	return "notsupported";
+  }
+}
+
+function showPosition(position) {
+  var latitude = position.coords.latitude; 
+  var longitude = position.coords.longitude;
+  var geo = [latitude, longitude];
+  return geo;
+}
