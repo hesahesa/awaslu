@@ -1570,7 +1570,7 @@ if (node.length > 0) {
 	show_grid: true,
 	label_max: false,
 	label_min:false,
-	show_y_labels:false
+	font_family:"Roboto"
 	});
 /*
 	for (var i=0;i <= (stats.length - 1);i++){
