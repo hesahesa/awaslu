@@ -1,7 +1,12 @@
 .gCard{
 	margin:5px 0;
 	box-shadow:0px 0px 1px 0px rgba(0,0,0,0.5);
-	font-size:14px;		
+	font-size:14px;	
+	float:left;
+	clear:both;
+	width:100%;
+	box-sizing:border-box;
+	-webkit-box-sizing:border-box;
 }
 
 .gCard > div{

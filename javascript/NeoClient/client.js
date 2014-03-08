@@ -1315,30 +1315,28 @@ pemilu.config = {
     this.user_name = obj.user_name;
     this.full_name = obj.full_name
     this.UKM_ID = ukm_id;
-};﻿bbmk.controllerUKM = function () {
+};﻿bbmk.controller = function () {
     _this = this;
-    this.ukm_list = [];
-    this.hasMember = false;
-    this.hasBBMKParticipant = false;
-    this.totMember = 0;
-    this.totBBMKParticipant = 0;
+    this.reports = [];
+    this.hasReport = false;
+    this.totReport = 0;
 
-    this.getUkmList = function (_view) {
+    this.getReportList = function (_view) {
         var ajaxCall = new bbmk.util.ajaxCall();
-        ajaxCall.getUKMList(function (response) {
-            _this.setUKMList(response, _view);
+        ajaxCall.getReportList(function (response) {
+            _this.setReportList(response, _view);
             //force to re-bind
             _view.bind();
         });
     }
 
-    this.setUKMList = function (data, _view) {
+    this.setReportList = function (data, _view) {
         //create random ukm list, later fetch it using ajax call
         for (i = 0; i < 19 ; i++) {
-			var ukm_name = "sample_name" + i;
-            var jsonData = [{ "ukm_id": i, "ukm_name": ukm_name, "ukm_desc": "desc" + i, "ukm_status": i % 2 }];
+			var report_title = "sample_name" + i;
+            var jsonData = [{ "report_id": i, "report_title": report_title}];
             console.log(jsonData[0]);
-            this.ukm_list[i] = new bbmk.ukm(jsonData[0]);
+            this.ukm_list[i] = new bbmk.report(jsonData[0]);
         }
 		_view.bind();
     }
@@ -1371,22 +1369,20 @@ pemilu.ui.rivets.bind = function () {
     });
 };﻿pemilu.ui.ready = function () {
 
-    window.controllerUKM = new pemilu.controllerUKM();
-	controllerUKM = window.controllerUKM;
+    window.controller = new pemilu.controller();
+	controller = window.controller;
 
     pemilu.ui.rivets.bind();
     pemilu.ui.rivets.setup();
     pemilu.ui.bind();
 
-	controllerUKM.setUKMList("{}",view);
+	controller.setReportList("{}",view);
 }
 
 /* Function to bind the element with handler */
 pemilu.ui.bind = function ()
 {
-    $("#test").bind("click", function(){
-        $("#test-click").show();
-    });
+    
 
 }﻿;pemilu.util.ajaxCall = function () {
 
