@@ -16,7 +16,7 @@ pemilu.util.ajaxCall.prototype.getArea = function (geoLocation, callback) {
 };
 
 pemilu.util.ajaxCall.prototype.getCalegDetail = function (calegID, callback) {
-	this.url = pemilu.api.API_BASE_URL + "/candidate/api/caleg/"+calegID+"?apiKey="+pemilu.api.API_PEMILU_KEY ;
+	this.url = pemilu.api.API_BASE_URL + "candidate/api/caleg/"+calegID+"?apiKey="+pemilu.api.API_PEMILU_KEY ;
 	$.ajax(this.url, {
 		type: "GET",
 		dataType: "json"
@@ -103,15 +103,5 @@ pemilu.util.ajaxCall.prototype.getTotReportByParty = function (party_id, callbac
 	});
 };
 
-pemilu.util.ajaxCall.prototype.getCalegInfo = function (calegID, callback) {
-	this.url = pemilu.config.GET_CALEG + "?caleg_id=" +  party_id;
-	$.ajax(this.url, {
-		type: "GET",
-		dataType: "json"
-	}).done(function (data, textStatus, jqXHR) {
-		callback(data);
-	}).fail(function (jqXHR, textStatus, errorThrown) {
-		// ADD ERROR CALLBACK
-	});
-};
+
 

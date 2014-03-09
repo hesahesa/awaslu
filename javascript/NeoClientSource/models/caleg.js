@@ -1,4 +1,5 @@
-﻿pemilu.caleg = function (obj) {
+﻿
+pemilu.caleg = function (obj) {
     this.id = obj.id;
     this.tahun = obj.tahun;
     this.lembaga = obj.lembaga

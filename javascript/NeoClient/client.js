@@ -1323,7 +1323,8 @@ pemilu.config = {
     this.id = obj.id;
     this.nama = obj.nama;
     this.lembaga = obj.lembaga;
-};﻿pemilu.caleg = function (obj) {
+};﻿
+pemilu.caleg = function (obj) {
     this.id = obj.id;
     this.tahun = obj.tahun;
     this.lembaga = obj.lembaga
@@ -1350,13 +1351,12 @@ pemilu.config = {
 	
 };
 ﻿pemilu.controller = function () {
-    _this = this;
+    _mythis = _this = this;
     this.reports = [];
     this.hasReport = false;
     this.totReport = 0;
 	this.geoLocation = null;
 	this.area = [];
-	this.calegs = [];
 };
 
 pemilu.controller.prototype.getGeoLocation = function(callback){
@@ -1468,8 +1468,12 @@ pemilu.controller.prototype.getTotReportByParty = function (partyID, _view) {
 pemilu.controller.prototype.setReportList = function (data, _view) {
 	if (data !=null ){
 	$("#addReport").show();
+	var ajaxCall = new pemilu.util.ajaxCall();
 		for (var i = 0; i <= (data.length -1 ) ; i++) {
-			this.reports.push(new pemilu.report(data[i]));
+		
+				_this.reports[i] = new pemilu.report(data[i]);
+				
+				
 			_view.bind();
 			var dummyStats = [[ new Date("1/1/2012"), 3], [new Date("2/1/2012"),15], [ new Date("3/1/2012"),  34],[ new Date("4/1/2012"), 10], [new Date("5/1/2012"),1], [ new Date("6/1/2012"),  4],[ new Date("7/1/2012"), 10], [new Date("8/1/2012"),1], [ new Date("9/1/2012"),  4]];
 			
@@ -1503,6 +1507,7 @@ pemilu.controller.prototype.getMostSharedReportList	= function (_view) {
 
 
 ﻿pemilu.report = function (obj) {
+	__this = this;
     this.id = obj.id;
     this.title = obj.title;
     this.picture_url = obj.picture_url;
@@ -1514,7 +1519,8 @@ pemilu.controller.prototype.getMostSharedReportList	= function (_view) {
 	this.party_id = obj.party_id_API;
 	this.user_id = obj.user_id;
 	this.sharecounter = obj.sharecounter;
-	this.caleg = {};
+	this.caleg = [];
+
 };﻿pemilu.ui.rivets = {}
 pemilu.ui.rivets.setup = function() {
 
@@ -1687,7 +1693,11 @@ pemilu.util.ajaxCall.prototype.getArea = function (geoLocation, callback) {
 };
 
 pemilu.util.ajaxCall.prototype.getCalegDetail = function (calegID, callback) {
+<<<<<<< HEAD
 	this.url = pemilu.api.API_BASE_URL + "/candidate/api/caleg/"+calegID+"?apiKey="+pemilu.api.API_PEMILU_KEY ;
+=======
+	this.url = pemilu.api.API_BASE_URL + "candidate/api/caleg/"+calegID+"?apiKey="+pemilu.api.API_PEMILU_KEY ;
+>>>>>>> origin/master
 	$.ajax(this.url, {
 		type: "GET",
 		dataType: "json"
@@ -1774,15 +1784,5 @@ pemilu.util.ajaxCall.prototype.getTotReportByParty = function (party_id, callbac
 	});
 };
 
-pemilu.util.ajaxCall.prototype.getCalegInfo = function (calegID, callback) {
-	this.url = pemilu.config.GET_CALEG + "?caleg_id=" +  party_id;
-	$.ajax(this.url, {
-		type: "GET",
-		dataType: "json"
-	}).done(function (data, textStatus, jqXHR) {
-		callback(data);
-	}).fail(function (jqXHR, textStatus, errorThrown) {
-		// ADD ERROR CALLBACK
-	});
-};
+
 
