@@ -116,6 +116,9 @@ $(document).ready(function(){
 	</div>
 </div>
 <div id="dialogue-overlay"></div>
+<div id="addReport" class="tablet" style="bottom:0;left:0;margin:0">
+		<a href="#" class="iButton">+</a>
+</div>
 <script src="./javascript/jslib/filedrag.js"></script>
 </body>
 </html>
