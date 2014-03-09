@@ -1,11 +1,10 @@
 ﻿pemilu.controller = function () {
-    _this = this;
+    _mythis = _this = this;
     this.reports = [];
     this.hasReport = false;
     this.totReport = 0;
 	this.geoLocation = null;
 	this.area = [];
-	this.calegs = [];
 };
 
 pemilu.controller.prototype.getGeoLocation = function(callback){
@@ -117,8 +116,12 @@ pemilu.controller.prototype.getTotReportByParty = function (partyID, _view) {
 pemilu.controller.prototype.setReportList = function (data, _view) {
 	if (data !=null ){
 	$("#addReport").show();
+	var ajaxCall = new pemilu.util.ajaxCall();
 		for (var i = 0; i <= (data.length -1 ) ; i++) {
-			this.reports.push(new pemilu.report(data[i]));
+		
+				_this.reports[i] = new pemilu.report(data[i]);
+				
+				
 			_view.bind();
 			var dummyStats = [[ new Date("1/1/2012"), 3], [new Date("2/1/2012"),15], [ new Date("3/1/2012"),  34],[ new Date("4/1/2012"), 10], [new Date("5/1/2012"),1], [ new Date("6/1/2012"),  4],[ new Date("7/1/2012"), 10], [new Date("8/1/2012"),1], [ new Date("9/1/2012"),  4]];
 			
