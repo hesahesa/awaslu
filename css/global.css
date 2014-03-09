@@ -41,7 +41,7 @@ a.iButton{
 	font-size:3em;
 	color: #3d3d3d;
 	margin-left: -338px;
-	top: 45px;
+	top: 55px;
 	display:none;
 }
 
@@ -97,11 +97,12 @@ a.iButton{
 	border: 1px solid #ddd;
 	padding: 5px;
 	background: #fff;
-	margin-right: 20px;
+	margin-right: 10px;
 }
 
 .post-info .caleg-info span{
 	float:left;
+	clear:both;
 }
 
 .post-info .caleg-info div{
@@ -133,17 +134,29 @@ a.iButton{
 }
 
 #dialogue-container{
-	position:fixed;
-	width:300px;
-	left:50%;
-	margin-left:-150px;
-	z-index:999;
-	top: 50%;
+	position: fixed;
+	width: 500px;
+	left: 50%;
+	margin-left: -250px;
+	z-index: 999;
+	top: 30%;
 }
 
 #dialogue{
 	display:none;
+	background:#fff;
+	border-radius:10px;
 }
+
+#dialogue form{
+	padding:10px;
+	background:#ddd;
+	border-radius: 10px
+}
+
+#uploadField{
+	background: #fff;
+	}
 
 /* animation */
 .rotate-me {

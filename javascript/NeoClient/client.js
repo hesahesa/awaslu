@@ -1472,6 +1472,10 @@ pemilu.controller.prototype.setReportList = function (data, _view) {
 		for (var i = 0; i <= (data.length -1 ) ; i++) {
 		
 				_this.reports[i] = new pemilu.report(data[i]);
+				var ajaxCall = new pemilu.util.ajaxCall();
+				ajaxCall.getCalegDetail(data[i].id, function(response){
+					_this.reports[i].caleg = new pemilu.caleg(response.data.results.caleg[0]);
+				});
 				
 				
 			_view.bind();
@@ -1519,7 +1523,13 @@ pemilu.controller.prototype.getMostSharedReportList	= function (_view) {
 	this.party_id = obj.party_id_API;
 	this.user_id = obj.user_id;
 	this.sharecounter = obj.sharecounter;
-	this.caleg = [];
+	this.caleg = {
+		id : "",
+		tahun : "",
+		lembaga : "",
+		partai : "",
+		foto_url : ""
+	};
 
 };﻿pemilu.ui.rivets = {}
 pemilu.ui.rivets.setup = function() {
@@ -1561,6 +1571,23 @@ pemilu.ui.rivets.bind = function () {
 }
 
 /* Function to bind the element with handler */
+
+$(document).ready(function(){
+$('#share1').click(function(e){
+e.preventDefault();
+FB.ui(
+{
+method: 'feed',
+name: 'This is the content of the "name" field.',
+link: ' http://www.hyperarts.com/',
+picture: 'http://www.hyperarts.com/external-xfbml/share-image.gif',
+caption: 'This is the content of the "caption" field.',
+description: 'This is the content of the "description" field, below the caption.',
+message: ''
+});
+});
+});
+
 pemilu.ui.bind = function ()
 {
     $("#report-view-all").unbind("click");
