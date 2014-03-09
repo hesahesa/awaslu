@@ -1379,6 +1379,13 @@ pemilu.controller.prototype.getArea = function(geoLocation, callback){
 	
 };
 
+pemilu.controller.prototype.getCalegDetail = function(calegID, callback){
+		var ajaxCall = new pemilu.util.ajaxCall();
+		ajaxCall.getCalegDetail(calegID, function (response) {
+			callback(response);
+		});
+	
+};
 
 
 pemilu.controller.prototype.getAllReport = function (pageNum, _view) {
@@ -1492,24 +1499,6 @@ pemilu.controller.prototype.getMostSharedReportList	= function (_view) {
 		_view.bind();
 	});
 };
-pemilu.controller.prototype.getCalegInfo	= function (calegID) {
-	var ajaxCall = new pemilu.util.ajaxCall();
-	ajaxCall.getCalegInfo(function (response) {
-		_this.setCalegInfo(response);
-		//force to re-bind
-		_view.bind();
-	});
-};
-
-pemilu.controller.prototype.setCalegInfo = function (data, _view) {
-	if (data !=null ){
-		for (var i = 0; i <= (data.length -1 ) ; i++) {
-			this.reports.push(new pemilu.report(data[i]));			
-		}	
-		_view.bind();
-	}	
-	
-};
 
 
 
@@ -1541,6 +1530,12 @@ pemilu.ui.rivets.setup = function() {
 	    }
 	}
 	
+	rivets.formatters.twitterhref = {
+	    read: function (value) {
+	        return "http://twitter.com/share?text=%23CodeForVote%20" + value;
+	    }
+	}
+	
 };
 
 
@@ -1566,6 +1561,23 @@ pemilu.ui.rivets.bind = function () {
 }
 
 /* Function to bind the element with handler */
+/*
+$(document).ready(function(){
+$('#share1').click(function(e){
+e.preventDefault();
+FB.ui(
+{
+method: 'feed',
+name: 'This is the content of the "name" field.',
+link: ' http://www.hyperarts.com/',
+picture: 'http://www.hyperarts.com/external-xfbml/share-image.gif',
+caption: 'This is the content of the "caption" field.',
+description: 'This is the content of the "description" field, below the caption.',
+message: ''
+});
+});
+});*/
+
 pemilu.ui.bind = function ()
 {
     $("#report-view-all").unbind("click");
@@ -1584,6 +1596,13 @@ pemilu.ui.bind = function ()
 	
 	$("#dialogue-overlay").bind("click", function(){
 		hideDialogue("#dialogue");
+	});
+	
+	$(".iButton").bind("click", function(){
+		//increase share
+		//var content = $(this).data("title");
+		//console.log("aa"+content);
+		window.open("https://twitter.com/intent/tweet?hashtags=CodeForVote&original_referer=https%3A%2F%2Fawaslu.com&text="+content+"&tw_p=tweetbutton&url=https%3A%2F%2Fabout.twitter.com%2Fresources%2Fbuttons");
 	});
 }
 
@@ -1656,6 +1675,19 @@ function showPosition(position) {
 
 pemilu.util.ajaxCall.prototype.getArea = function (geoLocation, callback) {
 	this.url = pemilu.config.GET_AREA + "&lat=" + geoLocation[0] + "&long=" + geoLocation[1] ;
+	$.ajax(this.url, {
+		type: "GET",
+		dataType: "json"
+	}).done(function (data, textStatus, jqXHR) {
+		callback(data);
+	}).fail(function (jqXHR, textStatus, errorThrown) {
+		console.log(errorThrown);
+		// ADD ERROR CALLBACK
+	});
+};
+
+pemilu.util.ajaxCall.prototype.getCalegDetail = function (calegID, callback) {
+	this.url = pemilu.api.API_BASE_URL + "/candidate/api/caleg/"+calegID+"?apiKey="+pemilu.api.API_PEMILU_KEY ;
 	$.ajax(this.url, {
 		type: "GET",
 		dataType: "json"

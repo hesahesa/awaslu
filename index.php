@@ -20,20 +20,6 @@ $(document).ready(function(){
 </script>
 </head>
 <body>
-<!--<div id="fb-root"></div>
-<script>
-window.fbAsyncInit = function() {
-FB.init({appId: '482467868541853', status: true, cookie: true,
-xfbml: true});
-};
-(function() {
-var e = document.createElement('script'); e.async = true;
-e.src = document.location.protocol +
-'//connect.facebook.net/en_US/all.js';
-document.getElementById('fb-root').appendChild(e);
-}());
-</script>
--->
 <div class="gCard" id="nav">
 	<ul>
 		
@@ -80,7 +66,7 @@ document.getElementById('fb-root').appendChild(e);
 				dishare sebanyak <b>{ post.sharecounter }</b> kali
 				</div>
 				<div class="post-info-share">
-					<a id="share1" class="iButton" href="#"><span class="icon-share"></span></a>
+					<a id="share1" class="iButton" rv-href="post.title | twitterhref" target="_blank"><span class="icon-share"></span></a>
 				</div>
 			</div>
 			<div class="clearthis"></div>

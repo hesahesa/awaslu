@@ -10,7 +10,7 @@
 }
 
 /* Function to bind the element with handler */
-
+/*
 $(document).ready(function(){
 $('#share1').click(function(e){
 e.preventDefault();
@@ -25,7 +25,7 @@ description: 'This is the content of the "description" field, below the caption.
 message: ''
 });
 });
-});
+});*/
 
 pemilu.ui.bind = function ()
 {
@@ -45,6 +45,13 @@ pemilu.ui.bind = function ()
 	
 	$("#dialogue-overlay").bind("click", function(){
 		hideDialogue("#dialogue");
+	});
+	
+	$(".iButton").bind("click", function(){
+		//increase share
+		//var content = $(this).data("title");
+		//console.log("aa"+content);
+		window.open("https://twitter.com/intent/tweet?hashtags=CodeForVote&original_referer=https%3A%2F%2Fawaslu.com&text="+content+"&tw_p=tweetbutton&url=https%3A%2F%2Fabout.twitter.com%2Fresources%2Fbuttons");
 	});
 }
 

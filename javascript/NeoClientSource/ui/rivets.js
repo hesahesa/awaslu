@@ -13,6 +13,12 @@ pemilu.ui.rivets.setup = function() {
 	    }
 	}
 	
+	rivets.formatters.twitterhref = {
+	    read: function (value) {
+	        return "http://twitter.com/share?text=%23CodeForVote%20" + value;
+	    }
+	}
+	
 };
 
 
