@@ -7,8 +7,9 @@
 	// return json of status
 	// errors: - nn not exist
 	extract($_POST);
+	print_r($_POST);
 	
-	$objres = storelaporan($title, $picture_url, $description, $date, $caleg_id_API, $latitude, $longitude, $party_id_API, $user_id);
+	$objres = storelaporan($title, $picture_url, $description, $caleg_id_API, $latitude, $longitude, $party_id_API, $user_id, $area_id);
 	//print_r($objres);
 	$valid = array_filter($objres);
 
