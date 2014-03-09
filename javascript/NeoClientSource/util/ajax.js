@@ -15,6 +15,19 @@ pemilu.util.ajaxCall.prototype.getArea = function (geoLocation, callback) {
 	});
 };
 
+pemilu.util.ajaxCall.prototype.getCalegDetail = function (calegID, callback) {
+	this.url = pemilu.api.API_BASE_URL + "/candidate/api/caleg/"+calegID+"?apiKey="+pemilu.api.API_PEMILU_KEY ;
+	$.ajax(this.url, {
+		type: "GET",
+		dataType: "json"
+	}).done(function (data, textStatus, jqXHR) {
+		callback(data);
+	}).fail(function (jqXHR, textStatus, errorThrown) {
+		console.log(errorThrown);
+		// ADD ERROR CALLBACK
+	});
+};
+
 pemilu.util.ajaxCall.prototype.getMostSharedReportList = function (pageNum, callback) {
 	this.url = pemilu.config.GET_MOST_SHARED_LAPORAN + "?pagenum=" + pageNum ;
 	$.ajax(this.url, {

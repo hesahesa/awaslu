@@ -28,6 +28,13 @@ pemilu.controller.prototype.getArea = function(geoLocation, callback){
 	
 };
 
+pemilu.controller.prototype.getCalegDetail = function(calegID, callback){
+		var ajaxCall = new pemilu.util.ajaxCall();
+		ajaxCall.getCalegDetail(calegID, function (response) {
+			callback(response);
+		});
+	
+};
 
 
 pemilu.controller.prototype.getAllReport = function (pageNum, _view) {
