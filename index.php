@@ -79,7 +79,7 @@ $(document).ready(function(){
 <div id="dialogue-container">
 	<div id="dialogue" class="gCard">
 		<div>
-			<form id="uploadForm" action="./backend/file_uploader.php" enctype="multipart/form-data" method="post">
+			<form id="uploadForm" action="#" enctype="multipart/form-data" method="post">
 				<fieldset>
 				<legend>Upload Gambar</legend>
 
@@ -87,14 +87,14 @@ $(document).ready(function(){
 				<input type="hidden" id="FILE_UPLOAD_URL" name="picture_url" value="" />
 				
 				<div id="detailField">
-				Judul Laporan : <input type="text" id="titleLaporan" name="title" value="" /> <br />
-				Deskripsi Laporan : <input type="text" id="deskripsiLaporan" name="description" value="" /> <br />
-				Caleg ID : <input type="text" id="calegID" name="caleg_id_API" value="" /> <br />
+				Judul Laporan : <input type="text" id="title" name="title" value="" /> <br />
+				Deskripsi Laporan : <input type="text" id="description" name="description" value="" /> <br />
+				Caleg ID : <input type="text" id="caleg_id_API" name="caleg_id_API" value="" /> <br />
 				Latitude : <input type="text" id="latitude" name="latitude" value="" /> <br />
 				Longitude : <input type="text" id="longitude" name="longitude" value="" /> <br />
-				Party ID : <input type="text" id="partyID" name="party_id_API" value="" /> <br />
-				user ID : <input type="text" id="userID" name="user_id" value="" /> <br />
-				Area ID : <input type="text" id="areaID" name="area_id" value="" /> <br />
+				Party ID : <input type="text" id="party_id_API" name="party_id_API" value="" /> <br />
+				user ID : <input type="text" id="user_id" name="user_id" value="" /> <br />
+				Area ID : <input type="text" id="area_id" name="area_id" value="" /> <br />
 				</div>
 
 				<div id="uploadField">
@@ -104,7 +104,7 @@ $(document).ready(function(){
 				</div>
 
 				<div id="submitbutton">
-					<button id="submitbuttontext" type="submit">Upload Files</button>
+					<button id="submitbuttontext" type="button">Upload Files</button>
 				</div>
 
 				</fieldset>
