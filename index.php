@@ -20,7 +20,20 @@ $(document).ready(function(){
 </script>
 </head>
 <body>
-
+<!--<div id="fb-root"></div>
+<script>
+window.fbAsyncInit = function() {
+FB.init({appId: '482467868541853', status: true, cookie: true,
+xfbml: true});
+};
+(function() {
+var e = document.createElement('script'); e.async = true;
+e.src = document.location.protocol +
+'//connect.facebook.net/en_US/all.js';
+document.getElementById('fb-root').appendChild(e);
+}());
+</script>
+-->
 <div class="gCard" id="nav">
 	<ul>
 		
@@ -46,7 +59,7 @@ $(document).ready(function(){
 				<span class="title">{ post.title }</span>
 				<span class="date">{ post.date }</span>
 			</div>
-			<div class="post-info"> 
+			<div  class="post-info"> 
 				<div>
 					<img class="post-image" rv-src="post.picture_url" />
 					<div class="additional-info">
@@ -67,7 +80,7 @@ $(document).ready(function(){
 				dishare sebanyak <b>{ post.sharecounter }</b> kali
 				</div>
 				<div class="post-info-share">
-					<a class="iButton" href="#"><span class="icon-share"></span></a>
+					<a id="share1" class="iButton" href="#"><span class="icon-share"></span></a>
 				</div>
 			</div>
 			<div class="clearthis"></div>
