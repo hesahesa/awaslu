@@ -107,6 +107,35 @@ Developed by Craig Buckler (@craigbuckler) of OptimalWorks.net
 					console.log(xhr.response);
 					$id("FILE_UPLOAD_URL").value = (JSON.parse(xhr.response)).file_name;
 					$id("submitbuttontext").innerHTML = "Kirim Laporan";
+					/*$("#submitbuttontext").on("click", function(evt) {
+						evt.preventDefault();
+						var xhr2 = new XMLHttpRequest();
+						xhr2.open("POST", $id("uploadForm").action, true);
+						xhr2.send(file);
+						xhr2.onreadystatechange = function(e) {
+							if (xhr2.readyState == 4) {
+								if(xhr2.status == 200) {
+									alert("uploaded");
+									console.log(xhr2.response);
+								}
+							};
+						hideDialogue("dialogue");
+						}
+					} );*/
+					$('#submitbuttontext').click(function(e){
+						e.preventDefault();
+						$.ajax({
+							type: 'POST',
+							cache: false,
+							url: './backend/writenewlaporan.php',
+							data: 'picture_url='+$("#FILE_UPLOAD_URL").val()+'&title='+$("#title").val()+'&description='+$("#description").val()+'&caleg_id_API='+$("#caleg_id_API").val()+'&latitude='+$("#latitude").val()+'&longitude='+$("#longitude").val()+'&party_id_API='+$("#party_id_API").val()+'&user_id='+$("#user_id").val()+'&area_id='+$("#area_id").val(),
+							success: function(msg) {
+								alert("uploaded");
+								console.log(msg);
+								hideDialogue("dialogue");
+							}
+						});
+					});
 					$id("detailField").style.display = "block";
 					$id("submitbutton").style.display = "block";
 					$id("uploadField").style.display = "none";
@@ -114,7 +143,7 @@ Developed by Craig Buckler (@craigbuckler) of OptimalWorks.net
 			};
 
 			// start upload
-			xhr.open("POST", $id("uploadForm").action, true);
+			xhr.open("POST", "./backend/file_uploader.php", true);
 			xhr.setRequestHeader("X_FILENAME", file.name);
 			xhr.send(file);
 
