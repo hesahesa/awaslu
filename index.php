@@ -47,11 +47,15 @@ $(document).ready(function(){
 			</div>
 			<div  class="post-info"> 
 				<div>
-					<img class="post-image" rv-src="post.picture_url" />
+					<img class="post-image" src="http://stat.ks.kidsklik.com/statics/files/2014/01/13887804611655356549.gif" />
 					<div class="additional-info">
 						<div class="caleg-info">
 							<img src="http://rinaldimunir.files.wordpress.com/2013/04/emil.jpeg" />
-							<span>{ post.party_id }</span>
+							<div style="clear:none">
+								<span style="font-weight:bold">Anonymous</span>
+								<span style="">Partai Anonymous</span>
+								<span style="color:green">53 Tahun</span>
+							</div>
 							<div rv-class='post.id | chartClass' style='width: 450px; height: 300px;'></div>
 						</div>
 						<div class="description">
@@ -80,7 +84,6 @@ $(document).ready(function(){
 		<div>
 			<form id="uploadForm" action="#" enctype="multipart/form-data" method="post">
 				<fieldset>
-				<legend>Upload Gambar</legend>
 
 				<input type="hidden" id="MAX_FILE_SIZE" name="MAX_FILE_SIZE" value="1000000" />
 				<input type="hidden" id="FILE_UPLOAD_URL" name="picture_url" value="" />
@@ -96,10 +99,10 @@ $(document).ready(function(){
 				Area ID : <input type="text" id="area_id" name="area_id" value="" /> <br />
 				</div>
 
-				<div id="uploadField">
-					<label for="fileselect">Files to upload:</label>
+				<div id="uploadField" style="padding:5px;border:1px dotted #ddd">
+					<label for="fileselect">Upload Gambar:</label>
 					<input type="file" id="fileselect" name="fileselect[]" multiple="multiple" />
-					<div id="filedrag">or drop files here</div>
+					<div id="filedrag" style="padding:5px; background:#f5f5f5">or drop files here</div>
 				</div>
 
 				<div id="submitbutton">

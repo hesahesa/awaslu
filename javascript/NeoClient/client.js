@@ -1472,6 +1472,10 @@ pemilu.controller.prototype.setReportList = function (data, _view) {
 		for (var i = 0; i <= (data.length -1 ) ; i++) {
 		
 				_this.reports[i] = new pemilu.report(data[i]);
+				var ajaxCall = new pemilu.util.ajaxCall();
+				ajaxCall.getCalegDetail(data[i].id, function(response){
+					_this.reports[i].caleg = new pemilu.caleg(response.data.results.caleg[0]);
+				});
 				
 				
 			_view.bind();
@@ -1519,7 +1523,13 @@ pemilu.controller.prototype.getMostSharedReportList	= function (_view) {
 	this.party_id = obj.party_id_API;
 	this.user_id = obj.user_id;
 	this.sharecounter = obj.sharecounter;
-	this.caleg = [];
+	this.caleg = {
+		id : "",
+		tahun : "",
+		lembaga : "",
+		partai : "",
+		foto_url : ""
+	};
 
 };﻿pemilu.ui.rivets = {}
 pemilu.ui.rivets.setup = function() {
@@ -1533,12 +1543,6 @@ pemilu.ui.rivets.setup = function() {
 	rivets.formatters.chartClass = {
 	    read: function (value) {
 	        return "chart_" + value;
-	    }
-	}
-	
-	rivets.formatters.twitterhref = {
-	    read: function (value) {
-	        return "http://twitter.com/share?text=%23CodeForVote%20" + value;
 	    }
 	}
 	
@@ -1567,7 +1571,7 @@ pemilu.ui.rivets.bind = function () {
 }
 
 /* Function to bind the element with handler */
-/*
+
 $(document).ready(function(){
 $('#share1').click(function(e){
 e.preventDefault();
@@ -1582,7 +1586,7 @@ description: 'This is the content of the "description" field, below the caption.
 message: ''
 });
 });
-});*/
+});
 
 pemilu.ui.bind = function ()
 {
@@ -1602,13 +1606,6 @@ pemilu.ui.bind = function ()
 	
 	$("#dialogue-overlay").bind("click", function(){
 		hideDialogue("#dialogue");
-	});
-	
-	$(".iButton").bind("click", function(){
-		//increase share
-		//var content = $(this).data("title");
-		//console.log("aa"+content);
-		window.open("https://twitter.com/intent/tweet?hashtags=CodeForVote&original_referer=https%3A%2F%2Fawaslu.com&text="+content+"&tw_p=tweetbutton&url=https%3A%2F%2Fabout.twitter.com%2Fresources%2Fbuttons");
 	});
 }
 
@@ -1693,11 +1690,7 @@ pemilu.util.ajaxCall.prototype.getArea = function (geoLocation, callback) {
 };
 
 pemilu.util.ajaxCall.prototype.getCalegDetail = function (calegID, callback) {
-<<<<<<< HEAD
-	this.url = pemilu.api.API_BASE_URL + "/candidate/api/caleg/"+calegID+"?apiKey="+pemilu.api.API_PEMILU_KEY ;
-=======
 	this.url = pemilu.api.API_BASE_URL + "candidate/api/caleg/"+calegID+"?apiKey="+pemilu.api.API_PEMILU_KEY ;
->>>>>>> origin/master
 	$.ajax(this.url, {
 		type: "GET",
 		dataType: "json"

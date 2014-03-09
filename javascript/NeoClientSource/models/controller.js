@@ -120,6 +120,11 @@ pemilu.controller.prototype.setReportList = function (data, _view) {
 		for (var i = 0; i <= (data.length -1 ) ; i++) {
 		
 				_this.reports[i] = new pemilu.report(data[i]);
+				var ajaxCall = new pemilu.util.ajaxCall();
+				ajaxCall.getCalegDetail(data[i].id, function(response){
+		
+					//_this.reports[i].caleg = new pemilu.caleg(response.data.results.caleg[0]);
+				});
 				
 				
 			_view.bind();
