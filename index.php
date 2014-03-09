@@ -1,7 +1,7 @@
 <html>
 <head>
 <meta name="viewport" content="initial-scale=1, maximum-scale=1, width=device-width" >
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="javascript/jslib/jquery.min.js"></script>
 <script type="text/javascript" src="javascript/jslib/raphael.min.js"></script>
 <script type="text/javascript" src="javascript/jslib/charts.min.js"></script>
 <script type="text/javascript" src="javascript/NeoClient/client.js"></script>
@@ -16,9 +16,6 @@
 <script type="text/javascript">
 $(document).ready(function(){
 	pemilu.ui.ready();
-
-
-
 });
 </script>
 </head>
@@ -40,7 +37,7 @@ $(document).ready(function(){
 
 <div id="wrapper">
 	<div id="news-feed">
-		
+		<div class="icon-spinner rotate-me"></div>
 	</div>
 	<div id="report-list">
 	<div class="gCard" rv-each-post="controller.reports">
@@ -56,7 +53,7 @@ $(document).ready(function(){
 						<div class="caleg-info">
 							<img src="http://rinaldimunir.files.wordpress.com/2013/04/emil.jpeg" />
 							<span>{ post.party_id }</span>
-							<div rv-class='post.id | chartClass' style='width: 300px; height: 300px;margin-top: -40px;'></div>
+							<div rv-class='post.id | chartClass' style='width: 450px; height: 300px;'></div>
 						</div>
 						<div class="description">
 						{ post.description } 
@@ -78,7 +75,6 @@ $(document).ready(function(){
 	</div>
 	</div>
 </div>
-
 
 <div id="dialogue-container">
 	<div id="dialogue" class="gCard">

@@ -1458,13 +1458,15 @@ pemilu.controller.prototype.getTotReportByParty = function (partyID, _view) {
 
 pemilu.controller.prototype.setReportList = function (data, _view) {
 	if (data !=null ){
+	$("#addReport").show();
 		for (var i = 0; i <= (data.length -1 ) ; i++) {
 			this.reports.push(new pemilu.report(data[i]));
 			_view.bind();
 			var dummyStats = [[ new Date("1/1/2012"), 3], [new Date("2/1/2012"),15], [ new Date("3/1/2012"),  34],[ new Date("4/1/2012"), 10], [new Date("5/1/2012"),1], [ new Date("6/1/2012"),  4],[ new Date("7/1/2012"), 10], [new Date("8/1/2012"),1], [ new Date("9/1/2012"),  4]];
 			
 		}
-		pemilu.ui.buildChart(i, dummyStats);		
+		pemilu.ui.buildChart(i, dummyStats);	
+		
 	}	
 	
 };
@@ -1570,7 +1572,7 @@ if (node.length > 0) {
 	show_grid: true,
 	label_max: false,
 	label_min:false,
-	show_y_labels:false
+	font_family:"Roboto"
 	});
 /*
 	for (var i=0;i <= (stats.length - 1);i++){
@@ -1600,8 +1602,9 @@ chart.draw();
 
 
 function showDialogue(dialogue){
-	$(dialogue).show();
-	$("#dialogue-overlay").fadeIn();
+	
+	$("#dialogue-overlay").show();
+	$(dialogue).fadeIn();
 }
 
 function hideDialogue(dialogue){

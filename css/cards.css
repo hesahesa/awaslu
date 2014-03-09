@@ -7,6 +7,7 @@
 	border-radius:3px;
 	float:left;
 	clear:both;
+	z-index:9;
 	width:100%;
 	font-family: "Open Sans","Roboto", sans-serif;
 	box-sizing:border-box;
@@ -46,7 +47,7 @@
 }
 
 .gCard .post-title .title{
-	font-size:1.3em;	
+	font-size:1em;	
 	color:#999;;
 	float:left
 }

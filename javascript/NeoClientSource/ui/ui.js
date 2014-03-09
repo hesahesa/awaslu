@@ -39,7 +39,7 @@ if (node.length > 0) {
 	show_grid: true,
 	label_max: false,
 	label_min:false,
-	show_y_labels:false
+	font_family:"Roboto"
 	});
 /*
 	for (var i=0;i <= (stats.length - 1);i++){
@@ -69,8 +69,9 @@ chart.draw();
 
 
 function showDialogue(dialogue){
-	$(dialogue).show();
-	$("#dialogue-overlay").fadeIn();
+	
+	$("#dialogue-overlay").show();
+	$(dialogue).fadeIn();
 }
 
 function hideDialogue(dialogue){

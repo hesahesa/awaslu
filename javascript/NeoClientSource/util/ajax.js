@@ -89,3 +89,16 @@ pemilu.util.ajaxCall.prototype.getTotReportByParty = function (party_id, callbac
 		// ADD ERROR CALLBACK
 	});
 };
+
+pemilu.util.ajaxCall.prototype.getCalegInfo = function (calegID, callback) {
+	this.url = pemilu.config.GET_CALEG + "?caleg_id=" +  party_id;
+	$.ajax(this.url, {
+		type: "GET",
+		dataType: "json"
+	}).done(function (data, textStatus, jqXHR) {
+		callback(data);
+	}).fail(function (jqXHR, textStatus, errorThrown) {
+		// ADD ERROR CALLBACK
+	});
+};
+
