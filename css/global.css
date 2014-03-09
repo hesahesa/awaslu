@@ -2,7 +2,10 @@ html, body{
 	font-family: "Open Sans","Roboto", sans-serif;
 	background:#ededed;
 }
-
+b, strong{
+	font-weight:bold;
+	color: #777;
+}
 a.iButton{
 	color:#3A77A1;
 	text-shadow:0px 0px 1px 0px rgba();

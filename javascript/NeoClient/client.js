@@ -8,6 +8,7 @@ pemilu.api = {
 pemilu.config = {
 	
 	GET_AREA : pemilu.api.API_BASE_URL + "geographic/api/point?apiKey=" + pemilu.api.API_PEMILU_KEY,
+	GET_CALEG : "",
     GET_ALL_LAPORAN : "./backend/getalllaporan.php",
 	GET_ALL_LAPORAN_BY_AREA_ID : "./backend/getalllaporanbyareaid.php",
 	GET_LAPORAN : "./backend/getlaporan.php",
@@ -1355,6 +1356,7 @@ pemilu.config = {
     this.totReport = 0;
 	this.geoLocation = null;
 	this.area = [];
+	this.calegs = [];
 };
 
 pemilu.controller.prototype.getGeoLocation = function(callback){
@@ -1490,6 +1492,26 @@ pemilu.controller.prototype.getMostSharedReportList	= function (_view) {
 		_view.bind();
 	});
 };
+pemilu.controller.prototype.getCalegInfo	= function (calegID) {
+	var ajaxCall = new pemilu.util.ajaxCall();
+	ajaxCall.getCalegInfo(function (response) {
+		_this.setCalegInfo(response);
+		//force to re-bind
+		_view.bind();
+	});
+};
+
+pemilu.controller.prototype.setCalegInfo = function (data, _view) {
+	if (data !=null ){
+		for (var i = 0; i <= (data.length -1 ) ; i++) {
+			this.reports.push(new pemilu.report(data[i]));			
+		}	
+		_view.bind();
+	}	
+	
+};
+
+
 
 ﻿pemilu.report = function (obj) {
     this.id = obj.id;
@@ -1501,8 +1523,9 @@ pemilu.controller.prototype.getMostSharedReportList	= function (_view) {
 	this.latitude = obj.latitude;
 	this.longitude = obj.longitude;
 	this.party_id = obj.party_id_API;
-	this.user_id = this.user_id;
-	this.sharecounter = this.sharecounter;
+	this.user_id = obj.user_id;
+	this.sharecounter = obj.sharecounter;
+	this.caleg = {};
 };﻿pemilu.ui.rivets = {}
 pemilu.ui.rivets.setup = function() {
 
@@ -1718,3 +1741,16 @@ pemilu.util.ajaxCall.prototype.getTotReportByParty = function (party_id, callbac
 		// ADD ERROR CALLBACK
 	});
 };
+
+pemilu.util.ajaxCall.prototype.getCalegInfo = function (calegID, callback) {
+	this.url = pemilu.config.GET_CALEG + "?caleg_id=" +  party_id;
+	$.ajax(this.url, {
+		type: "GET",
+		dataType: "json"
+	}).done(function (data, textStatus, jqXHR) {
+		callback(data);
+	}).fail(function (jqXHR, textStatus, errorThrown) {
+		// ADD ERROR CALLBACK
+	});
+};
+
