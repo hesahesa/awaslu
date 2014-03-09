@@ -47,10 +47,10 @@ $(document).ready(function(){
 			</div>
 			<div  class="post-info"> 
 				<div>
-					<img class="post-image" src="http://stat.ks.kidsklik.com/statics/files/2014/01/13887804611655356549.gif" />
+					<img class="post-image" rv-src="post.picture_url" />
 					<div class="additional-info">
 						<div class="caleg-info">
-							<img src="http://rinaldimunir.files.wordpress.com/2013/04/emil.jpeg" />
+							<img src="http://images.nationalgeographic.com/wpf/media-live/photos/000/007/cache/spider-monkey_719_600x450.jpg" />
 							<div style="clear:none">
 								<span style="font-weight:bold">Anonymous</span>
 								<span style="">Partai Anonymous</span>
