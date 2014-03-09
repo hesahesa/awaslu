@@ -148,24 +148,6 @@ pemilu.controller.prototype.getMostSharedReportList	= function (_view) {
 		_view.bind();
 	});
 };
-pemilu.controller.prototype.getCalegInfo	= function (calegID) {
-	var ajaxCall = new pemilu.util.ajaxCall();
-	ajaxCall.getCalegInfo(function (response) {
-		_this.setCalegInfo(response);
-		//force to re-bind
-		_view.bind();
-	});
-};
-
-pemilu.controller.prototype.setCalegInfo = function (data, _view) {
-	if (data !=null ){
-		for (var i = 0; i <= (data.length -1 ) ; i++) {
-			this.reports.push(new pemilu.report(data[i]));			
-		}	
-		_view.bind();
-	}	
-	
-};
 
 
 

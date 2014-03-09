@@ -64,7 +64,7 @@ $(document).ready(function(){
 			</div>
 			<div class="post-info">
 				<div class="post-info-likes">
-				dishare sebanyak { post.sharecounter } kali
+				dishare sebanyak <b>{ post.sharecounter }</b> kali
 				</div>
 				<div class="post-info-share">
 					<a class="iButton" href="#"><span class="icon-share"></span></a>

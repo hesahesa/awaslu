@@ -8,6 +8,7 @@
 	this.latitude = obj.latitude;
 	this.longitude = obj.longitude;
 	this.party_id = obj.party_id_API;
-	this.user_id = this.user_id;
-	this.sharecounter = this.sharecounter;
+	this.user_id = obj.user_id;
+	this.sharecounter = obj.sharecounter;
+	this.caleg = {};
 };
